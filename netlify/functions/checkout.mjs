@@ -94,6 +94,7 @@ export default async (request) => {
         product_data: {
           name: `${sorte.name}, ${groesse.ml} ml`,
           description: [sorte.art, sorte.vol ? `${String(sorte.vol).replace('.', ',')} % vol.` : null].filter(Boolean).join(' · '),
+          metadata: { slug: sorte.slug, ml: groesse.ml },
         },
       },
     });
@@ -102,20 +103,30 @@ export default async (request) => {
   const versandCent = warenwertCent >= SITE.versand.freiAb * 100 ? 0 : Math.round(SITE.versand.pauschale * 100);
   const ursprung = adresse.origin;
 
+  // Bestellnummer: DO-JJMMTT-XXXX
+  const heute = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Vienna', year: '2-digit', month: '2-digit', day: '2-digit' })
+    .format(new Date())
+    .replace(/-/g, '');
+  const zeichen = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const zufall = Array.from(crypto.getRandomValues(new Uint8Array(4)), (z) => zeichen[z % zeichen.length]).join('');
+  const bestellnummer = `DO-${heute}-${zufall}`;
+
   const auftrag = {
     mode: 'payment',
     locale: 'de',
     line_items: zeilen,
-    success_url: `${ursprung}/bestellung/danke/?bestellung={CHECKOUT_SESSION_ID}`,
+    success_url: `${ursprung}/bestellung/danke/?bestellung={CHECKOUT_SESSION_ID}&nr=${bestellnummer}`,
+    client_reference_id: bestellnummer,
     cancel_url: `${ursprung}/kasse/`,
     phone_number_collection: { enabled: true },
     billing_address_collection: 'required',
     metadata: {
+      bestellnummer,
       lieferart,
       alter_bestaetigt: 'ja',
       artikel: uebersicht.join(', ').slice(0, 480),
     },
-    payment_intent_data: { description: `Bestellung ${SITE.name}` },
+    payment_intent_data: { description: `Bestellung ${bestellnummer} ${SITE.name}`, metadata: { bestellnummer } },
     custom_text: {
       submit: {
         message:

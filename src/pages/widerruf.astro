@@ -1,6 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
-import { SITE } from '../data/site.js';
+import { SITE, kasseSichtbar } from '../data/site.js';
+
+const offen = kasseSichtbar();
 ---
 
 <Base titel="Vertrag widerrufen">
@@ -8,31 +10,52 @@ import { SITE } from '../data/site.js';
     <div class="rahmen text">
       <h1>Vertrag widerrufen</h1>
       {
-        SITE.zahlungAktiv ? (
+        offen ? (
           <>
-            <p>
-              Hier kannst du einen über diesen Webshop geschlossenen Vertrag widerrufen. Du erhältst sofort eine
-              Bestätigung per E-Mail.
-            </p>
-            <form class="stapel" name="widerruf" method="POST" data-netlify="true" action="/widerruf/danke/">
-              <div class="feld">
-                <label for="w-name">Name</label>
-                <input id="w-name" name="name" type="text" autocomplete="name" required />
-              </div>
-              <div class="feld">
-                <label for="w-bestellung">Bestellnummer</label>
-                <input id="w-bestellung" name="bestellnummer" type="text" required />
-              </div>
-              <div class="feld">
-                <label for="w-mail">E-Mail-Adresse für die Bestätigung</label>
-                <input id="w-mail" name="email" type="email" autocomplete="email" required />
-              </div>
-              <div class="feld">
-                <label for="w-artikel">Welche Artikel? (leer lassen für die gesamte Bestellung)</label>
-                <textarea id="w-artikel" name="artikel" rows="3" />
-              </div>
-              <button class="knopf" type="submit">Widerruf bestätigen</button>
-            </form>
+            <div data-widerruf-eingabe class="stapel">
+              <p>
+                Hier kannst du einen über diesen Webshop geschlossenen Vertrag widerrufen. Du erhältst sofort eine
+                Eingangsbestätigung per E-Mail mit dem Inhalt deiner Erklärung sowie Datum und Uhrzeit. Einen Grund
+                musst du nicht angeben. Die Einzelheiten stehen in der
+                <a href="/widerrufsbelehrung/">Widerrufsbelehrung</a>.
+              </p>
+              <form class="stapel" data-widerruf novalidate>
+                <div class="feld">
+                  <label for="w-name">Name</label>
+                  <input id="w-name" name="name" type="text" autocomplete="name" required />
+                </div>
+                <div class="feld">
+                  <label for="w-bestellung">Bestellnummer</label>
+                  <input id="w-bestellung" name="bestellnummer" type="text" required />
+                  <span class="klein leise">Sie steht in deiner Bestellbestätigung, zum Beispiel DO-261121-AB12.</span>
+                </div>
+                <div class="feld">
+                  <label for="w-mail">E-Mail-Adresse für die Bestätigung</label>
+                  <input id="w-mail" name="email" type="email" autocomplete="email" required />
+                </div>
+                <div class="feld">
+                  <label for="w-artikel">Welche Artikel? (leer lassen für die gesamte Bestellung)</label>
+                  <textarea id="w-artikel" name="artikel" rows="3" />
+                </div>
+                <div class="versteckt" aria-hidden="true">
+                  <label for="w-website">Bitte leer lassen</label>
+                  <input id="w-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+                </div>
+                <p class="fehlermeldung versteckt" data-widerruf-fehler role="alert" />
+                <button class="knopf" type="submit" data-widerruf-knopf>Widerruf bestätigen</button>
+              </form>
+            </div>
+            <div data-widerruf-fertig class="stapel versteckt" role="status">
+              <h2>Dein Widerruf ist eingegangen</h2>
+              <p>
+                Eingang: <strong data-widerruf-zeit />. Die Eingangsbestätigung ist an deine E-Mail-Adresse unterwegs.
+                Schau bitte auch im Spam-Ordner nach.
+              </p>
+              <p>
+                Kommt keine E-Mail an, melde dich unter <a href={`mailto:${SITE.mail}`}>{SITE.mail}</a> oder
+                <a href={`tel:${SITE.telefonLink}`}>{SITE.telefon}</a>.
+              </p>
+            </div>
           </>
         ) : (
           <p class="hinweis-kasten">
@@ -43,4 +66,51 @@ import { SITE } from '../data/site.js';
       }
     </div>
   </section>
+
+  <script is:inline>
+    (function () {
+      var formular = document.querySelector('[data-widerruf]');
+      if (!formular) return;
+      var fehlerFeld = document.querySelector('[data-widerruf-fehler]');
+      var knopf = document.querySelector('[data-widerruf-knopf]');
+      function fehler(text) {
+        fehlerFeld.textContent = text;
+        fehlerFeld.classList.toggle('versteckt', !text);
+      }
+      formular.addEventListener('submit', function (ereignis) {
+        ereignis.preventDefault();
+        fehler('');
+        var daten = {};
+        ['name', 'bestellnummer', 'email', 'artikel', 'website'].forEach(function (feld) {
+          daten[feld] = formular.elements[feld].value.trim();
+        });
+        if (!daten.name || !daten.bestellnummer || !daten.email) {
+          return fehler('Bitte fülle Name, Bestellnummer und E-Mail-Adresse aus.');
+        }
+        knopf.disabled = true;
+        fetch('/api/widerruf', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(daten),
+        })
+          .then(function (antwort) {
+            return antwort
+              .json()
+              .catch(function () {
+                return {};
+              })
+              .then(function (inhalt) {
+                if (!antwort.ok) throw new Error(inhalt.fehler || '');
+                document.querySelector('[data-widerruf-zeit]').textContent = inhalt.zeit || '';
+                document.querySelector('[data-widerruf-eingabe]').classList.add('versteckt');
+                document.querySelector('[data-widerruf-fertig]').classList.remove('versteckt');
+              });
+          })
+          .catch(function (grund) {
+            knopf.disabled = false;
+            fehler(grund.message || 'Das hat nicht geklappt. Bitte versuche es noch einmal oder schreib uns eine E-Mail.');
+          });
+      });
+    })();
+  </script>
 </Base>

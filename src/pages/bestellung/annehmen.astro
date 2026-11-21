@@ -1,0 +1,54 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base titel="Bestellung annehmen">
+  <section class="abschnitt">
+    <div class="rahmen text">
+      <h1>Bestellung annehmen</h1>
+      <p>
+        Mit dem Knopf nimmst du die Bestellung an. Der Kunde bekommt dann die Vertragsbestätigung mit AGB,
+        Widerrufsbelehrung und Muster-Formular. Eine Kopie geht an euer Postfach.
+      </p>
+      <p class="fehlermeldung versteckt" data-annehmen-fehler role="alert"></p>
+      <p class="hinweis-kasten versteckt" data-annehmen-fertig role="status"></p>
+      <p><button class="knopf" type="button" data-annehmen-knopf>Annehmen und Vertragsbestätigung senden</button></p>
+    </div>
+  </section>
+
+  <script is:inline>
+    (function () {
+      var knopf = document.querySelector('[data-annehmen-knopf]');
+      var fehlerFeld = document.querySelector('[data-annehmen-fehler]');
+      var fertig = document.querySelector('[data-annehmen-fertig]');
+      var angaben = new URLSearchParams(window.location.search);
+      knopf.addEventListener('click', function () {
+        knopf.disabled = true;
+        fehlerFeld.classList.add('versteckt');
+        fetch('/api/annehmen', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ b: angaben.get('b'), c: angaben.get('c') }),
+        })
+          .then(function (antwort) {
+            return antwort
+              .json()
+              .catch(function () {
+                return {};
+              })
+              .then(function (inhalt) {
+                if (!antwort.ok) throw new Error(inhalt.fehler || '');
+                fertig.textContent = inhalt.meldung || 'Erledigt.';
+                fertig.classList.remove('versteckt');
+                knopf.classList.add('versteckt');
+              });
+          })
+          .catch(function (grund) {
+            knopf.disabled = false;
+            fehlerFeld.textContent = grund.message || 'Das hat nicht geklappt. Bitte versuche es noch einmal.';
+            fehlerFeld.classList.remove('versteckt');
+          });
+      });
+    })();
+  </script>
+</Base>

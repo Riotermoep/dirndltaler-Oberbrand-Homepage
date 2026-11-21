@@ -45,3 +45,11 @@ Versandkosten stehen in `src/data/site.js` (`versand`). Eine Sorte ohne Größen
 - Die Kasse (`/kasse/`) schickt die Bestellung an `netlify/functions/checkout.mjs`. Diese Funktion rechnet die Preise aus `src/data/sorten.js` neu und legt bei Stripe einen Bezahlvorgang an.
 - Der geheime Stripe-Schlüssel steht nur in Netlify unter „Keys and secrets“ als `STRIPE_SECRET_KEY`, nie in diesem Repository.
 - Solange `zahlungAktiv` in `src/data/site.js` auf `false` steht, ist die Kasse nur in den Vorschauen sichtbar und nimmt nur Testzahlungen an.
+
+## Bestätigungs-E-Mails
+
+- Stripe meldet jede bezahlte Bestellung an `netlify/functions/stripe-webhook.mjs`. Der Kunde bekommt die Eingangsbestätigung, euer Postfach eine Nachricht mit dem Link „Bestellung annehmen“.
+- Der Link führt auf `/bestellung/annehmen/`. Mit dem Knopf dort geht die Vertragsbestätigung samt AGB und Widerrufsbelehrung an den Kunden (`netlify/functions/annehmen.mjs`).
+- Der Online-Widerruf (`/widerruf/`) wird von `netlify/functions/widerruf.mjs` bestätigt.
+- Der Wortlaut von AGB und Widerrufsbelehrung steht nur in `src/data/rechtstexte.js`.
+- In Netlify unter „Keys and secrets“ nötig: `STRIPE_WEBHOOK_SECRET`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`.
