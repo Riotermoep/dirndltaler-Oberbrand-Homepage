@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/site.js';
+---
+
+<Base titel="Kontakt" beschreibung="Kontakt und Abholung ab Hof bei der Brennerei Dirndltaler Oberbrand in Hofstetten-Grünau.">
+  <section class="abschnitt">
+    <div class="rahmen stapel">
+      <span class="spitzmarke">Kontakt</span>
+      <h1>Ab Hof und am Telefon</h1>
+      <div class="text">
+        <p>
+          Du kannst unsere Brände direkt am Hof abholen. Ruf bitte vorher an, damit jemand da ist und alles bereitsteht.
+        </p>
+        <p>
+          <strong>{SITE.firma}</strong><br />
+          {SITE.strasse}<br />
+          {SITE.ort}
+        </p>
+        <p>
+          Telefon: <a href={`tel:${SITE.telefonLink}`}>{SITE.telefon}</a><br />
+          E-Mail: <a href={`mailto:${SITE.mail}`}>{SITE.mail}</a>
+        </p>
+        <p class="leise">Abgabe von Spirituosen nur an Personen ab 18 Jahren.</p>
+      </div>
+    </div>
+  </section>
+</Base>

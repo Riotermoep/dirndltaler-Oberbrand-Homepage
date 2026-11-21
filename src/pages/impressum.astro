@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import InArbeit from '../components/InArbeit.astro';
+import { SITE } from '../data/site.js';
+---
+
+<Base titel="Impressum">
+  <section class="abschnitt">
+    <div class="rahmen text">
+      <h1>Impressum</h1>
+      <p>
+        <strong>{SITE.firma}</strong><br />
+        {SITE.strasse}, {SITE.ort}, Österreich
+      </p>
+      <p>
+        Telefon: <a href={`tel:${SITE.telefonLink}`}>{SITE.telefon}</a><br />
+        E-Mail: <a href={`mailto:${SITE.mail}`}>{SITE.mail}</a>
+      </p>
+      <p>
+        Rechtsform: Offene Gesellschaft<br />
+        Gesellschafter: Christoph Grubner, Christoph Karner
+      </p>
+      <InArbeit />
+    </div>
+  </section>
+</Base>

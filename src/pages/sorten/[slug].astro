@@ -1,0 +1,117 @@
+---
+import Base from '../../layouts/Base.astro';
+import SortenKarte from '../../components/SortenKarte.astro';
+import { SORTEN, preisText, literpreisText, eckdaten } from '../../data/sorten.js';
+import { SITE } from '../../data/site.js';
+
+export function getStaticPaths() {
+  return SORTEN.map((sorte) => ({ params: { slug: sorte.slug }, props: { sorte } }));
+}
+
+const { sorte } = Astro.props;
+const preis = preisText(sorte);
+const literpreis = literpreisText(sorte);
+const daten = eckdaten(sorte);
+const weitere = SORTEN.filter((s) => s.slug !== sorte.slug).slice(0, 3);
+const kopfzeile = [sorte.bezeichnung, daten].filter(Boolean).join(' · ');
+
+const angaben = [
+  ['Bezeichnung', sorte.bezeichnung],
+  ['Nettofüllmenge', sorte.fuellmenge ? `${String(sorte.fuellmenge).replace('.', ',')} l` : null],
+  ['Alkoholgehalt', sorte.vol ? `${String(sorte.vol).replace('.', ',')} % vol.` : null],
+  ['Allergene', sorte.allergene],
+  ['Hersteller', `${SITE.firma}, ${SITE.strasse}, ${SITE.ort}, Österreich`],
+].filter(([, wert]) => wert);
+---
+
+<Base titel={sorte.name} beschreibung={`${sorte.name}, ${sorte.art} der Brennerei Dirndltaler Oberbrand.`}>
+  <div class="rahmen brotkrumen">
+    <a href="/">Start</a> / <a href="/sorten/">Sorten</a> / {sorte.name}
+  </div>
+
+  <section>
+    <div class="rahmen produkt">
+      <div class="produkt__bild">
+        {
+          sorte.bild ? (
+            <img src={`/img/${sorte.bild}`} alt={sorte.bildAlt} />
+          ) : (
+            <div class="platzhalter">
+              <img src="/img/wappen.svg" alt="" />
+            </div>
+          )
+        }
+      </div>
+      <div class="produkt__text stapel">
+        <span class="spitzmarke">{sorte.art}</span>
+        <h1>{sorte.name}</h1>
+        {kopfzeile && <span class="leise">{kopfzeile}</span>}
+        {sorte.text && <p class="text">{sorte.text}</p>}
+
+        {
+          preis ? (
+            <>
+              <div>
+                <div class="preis">{preis}</div>
+                <span class="klein leise">
+                  inkl. USt., zzgl. <a href="/versand-und-zahlung/">Versand</a>
+                  {literpreis && ` · ${literpreis}`}
+                </span>
+              </div>
+              <form class="kaufen" data-in-den-korb={sorte.slug}>
+                <div class="feld feld--menge">
+                  <label for="menge">Menge</label>
+                  <input id="menge" name="menge" type="number" min="1" value="1" />
+                </div>
+                <button class="knopf" type="submit">In den Warenkorb</button>
+              </form>
+              <p class="klein versteckt" data-korb-meldung role="status">
+                Liegt im Warenkorb. <a href="/warenkorb/">Zum Warenkorb</a>
+              </p>
+            </>
+          ) : (
+            <p class="hinweis-kasten">
+              Der Preis folgt in Kürze. Bis dahin erreichst du uns unter <a href={`tel:${SITE.telefonLink}`}>{SITE.telefon}</a>
+              oder <a href={`mailto:${SITE.mail}`}>{SITE.mail}</a>.
+            </p>
+          )
+        }
+
+        <ul class="hinweise">
+          <li>Versand nur innerhalb Österreichs</li>
+          <li>Abholung ab Hof nach Anruf, ohne Versandkosten</li>
+          <li>Verkauf nur an Personen ab 18, Übergabe gegen Ausweis</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="abschnitt abschnitt--hell" style="padding-top: 3.5rem; padding-bottom: 3.5rem">
+    <div class="rahmen stapel">
+      <h2>Produktinformationen</h2>
+      <div class="tabellenrahmen">
+        <table>
+          <tbody>
+            {
+              angaben.map(([name, wert]) => (
+                <tr>
+                  <th scope="row">{name}</th>
+                  <td>{wert}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="abschnitt">
+    <div class="rahmen stapel" style="gap: 1.5rem">
+      <h2>Weitere Sorten</h2>
+      <div class="gitter">
+        {weitere.map((s) => <SortenKarte sorte={s} />)}
+      </div>
+    </div>
+  </section>
+</Base>

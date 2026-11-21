@@ -1,0 +1,96 @@
+---
+import Base from '../layouts/Base.astro';
+import SortenKarte from '../components/SortenKarte.astro';
+import { SORTEN } from '../data/sorten.js';
+import { SITE } from '../data/site.js';
+---
+
+<Base>
+  <section class="buehne">
+    <img
+      class="buehne__bild"
+      src="/img/hero.jpg"
+      alt="Kupfer-Brennanlage mit Schauglas und dem Schriftzug Dirndltaler Oberbrand"
+    />
+    <div class="buehne__schleier"></div>
+    <div class="rahmen buehne__inhalt stapel">
+      <h1>Brennen mit <span>Leidenschaft.</span></h1>
+      <p>Edelbrände, Dirndlvodka und Raritäten vom Hof Oberbrand im Dirndltal.</p>
+      <div class="knopfreihe">
+        <a class="knopf knopf--kupfer" href="/sorten/">Zu den Sorten</a>
+        <a class="knopf knopf--linie" href="/kontakt/">Ab Hof abholen</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="fakten">
+    <div class="rahmen fakten__innen">
+      <div>
+        <strong>Gebrannt am Hof Oberbrand</strong>
+        <span>Eigene Brennanlage in Hofstetten-Grünau</span>
+      </div>
+      <div>
+        <strong>Versand in ganz Österreich</strong>
+        <span>Übergabe nur an Personen ab 18</span>
+      </div>
+      <div>
+        <strong>Ab Hof nach Anruf</strong>
+        <span>{SITE.telefon}</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="abschnitt" id="sorten">
+    <div class="rahmen stapel" style="gap: 2rem">
+      <div class="stapel" style="gap: 0.5rem">
+        <span class="spitzmarke">Sortiment</span>
+        <h2>Acht Sorten aus dem Dirndltal</h2>
+      </div>
+      <div class="gitter">
+        {SORTEN.map((sorte) => <SortenKarte sorte={sorte} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="abschnitt abschnitt--hell" id="brennerei">
+    <div class="rahmen zweispalter">
+      <div class="zweispalter__bild">
+        <img src="/img/anlage.jpg" alt="Die Kupfer-Brennanlage der Brennerei" loading="lazy" />
+      </div>
+      <div class="zweispalter__text stapel">
+        <span class="spitzmarke">Brennerei</span>
+        <h2>Kupfer, Handarbeit und Geduld.</h2>
+        <p class="text">
+          Wir brennen mit einer eigenen Anlage am Hof Oberbrand im Dirndltal. Die Zutaten kommen aus Eigenanbau oder
+          von Lieferanten aus der Region, denen wir vertrauen. Jede Charge entsteht in Handarbeit und geht durch unsere
+          eigene Qualitätskontrolle.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="abschnitt" id="ueber-uns">
+    <div class="rahmen stapel">
+      <span class="spitzmarke">Über uns</span>
+      <h2>Zwei Christophs, ein Hof.</h2>
+      <p class="text">
+        Die Leidenschaft für Regionales und Hochprozentiges verbindet Christoph Grubner und Christoph Karner. Mit dem
+        Hof Oberbrand in Hofstetten-Grünau war der Platz für die eigene Brennerei gefunden.
+      </p>
+    </div>
+  </section>
+
+  <section class="inferno">
+    <div class="rahmen zweispalter abschnitt" style="padding-top: 3.5rem; padding-bottom: 3.5rem">
+      <img class="inferno__logo" src="/img/inferno-logo.png" alt="Logo Oberbrands Inferno" loading="lazy" />
+      <div class="zweispalter__text stapel" style="gap: 0.6rem">
+        <span class="spitzmarke">Vom selben Hof</span>
+        <h2>Oberbrands Inferno</h2>
+        <p class="text">
+          Handgemachte Chiliprodukte vom Hof, von „Brennt ned“ bis „Brennt 2 moi“. Erhältlich nur ab Hof.
+        </p>
+        <a class="knopf" href="/vom-selben-hof/" style="margin-top: 0.6rem">Zur Rubrik</a>
+      </div>
+    </div>
+  </section>
+</Base>

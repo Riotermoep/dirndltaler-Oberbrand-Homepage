@@ -1,0 +1,20 @@
+---
+import Base from '../../layouts/Base.astro';
+import SortenKarte from '../../components/SortenKarte.astro';
+import { SORTEN } from '../../data/sorten.js';
+---
+
+<Base titel="Sorten" beschreibung="Alle Sorten der Brennerei Dirndltaler Oberbrand: Edelbrände, Dirndlvodka, Vodka und die Special Edition.">
+  <section class="abschnitt">
+    <div class="rahmen stapel" style="gap: 2rem">
+      <div class="stapel" style="gap: 0.5rem">
+        <span class="spitzmarke">Sortiment</span>
+        <h1>Unsere Sorten</h1>
+        <p class="text leise">Verkauf nur an Personen ab 18 Jahren. Versand innerhalb Österreichs oder Abholung ab Hof.</p>
+      </div>
+      <div class="gitter">
+        {SORTEN.map((sorte) => <SortenKarte sorte={sorte} />)}
+      </div>
+    </div>
+  </section>
+</Base>

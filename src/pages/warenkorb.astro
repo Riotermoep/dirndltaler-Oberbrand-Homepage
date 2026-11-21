@@ -1,0 +1,63 @@
+---
+import Base from '../layouts/Base.astro';
+import { SORTEN } from '../data/sorten.js';
+import { SITE } from '../data/site.js';
+
+const daten = Object.fromEntries(SORTEN.map((s) => [s.slug, { name: s.name, preis: s.preis }]));
+---
+
+<Base titel="Warenkorb">
+  <section class="abschnitt">
+    <div class="rahmen stapel">
+      <h1>Warenkorb</h1>
+
+      <div data-korb-leer class="stapel">
+        <p>Dein Warenkorb ist leer.</p>
+        <a class="knopf" href="/sorten/">Zu den Sorten</a>
+      </div>
+
+      <div data-korb-voll class="stapel versteckt" style="width: 100%">
+        <div class="tabellenrahmen">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Sorte</th>
+                <th scope="col">Menge</th>
+                <th scope="col" class="zahl">Preis</th>
+                <th scope="col"><span class="versteckt">Entfernen</span></th>
+              </tr>
+            </thead>
+            <tbody data-korb-liste></tbody>
+            <tfoot>
+              <tr>
+                <th scope="row" colspan="2">Zwischensumme</th>
+                <td class="zahl"><strong data-korb-summe></strong></td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <p class="klein leise">Preise inkl. USt., zzgl. <a href="/versand-und-zahlung/">Versand</a>.</p>
+
+        {
+          SITE.zahlungAktiv ? (
+            <a class="knopf" href="/kasse/">Zur Kasse</a>
+          ) : (
+            <div class="hinweis-kasten text">
+              <p>
+                <strong>Die Online-Bestellung ist noch nicht freigeschaltet.</strong>
+              </p>
+              <p>
+                Bis dahin nehmen wir deine Bestellung gern telefonisch unter
+                <a href={`tel:${SITE.telefonLink}`}>{SITE.telefon}</a> oder per E-Mail an
+                <a href={`mailto:${SITE.mail}`}>{SITE.mail}</a> entgegen.
+              </p>
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </section>
+
+  <script type="application/json" id="sorten-daten" set:html={JSON.stringify(daten)} />
+</Base>
