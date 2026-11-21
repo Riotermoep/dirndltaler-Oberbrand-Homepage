@@ -1,0 +1,606 @@
+:root {
+  --rot: #8a2432;
+  --edel: #69091c;
+  --kupfer: #ff9133;
+  --weiss: #f9f7f1;
+  --tinte: #2b1a1d;
+  --linie: #e2d9ce;
+  --leise: #5e4a4d;
+  --serif: 'Vollkorn', Georgia, serif;
+  --sans: 'Merriweather Sans', system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--weiss);
+  color: var(--tinte);
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: var(--rot);
+}
+a:hover {
+  color: var(--edel);
+}
+
+:focus-visible {
+  outline: 3px solid var(--kupfer);
+  outline-offset: 2px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--serif);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0;
+}
+h1 {
+  font-size: clamp(2.4rem, 6vw, 3.2rem);
+}
+h2 {
+  font-size: clamp(1.8rem, 4.5vw, 2.4rem);
+}
+h3 {
+  font-size: 1.5rem;
+}
+p {
+  margin: 0;
+}
+
+.rahmen {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.abschnitt {
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
+}
+.abschnitt--hell {
+  background: #fff;
+  border-top: 1px solid var(--linie);
+  border-bottom: 1px solid var(--linie);
+}
+
+.stapel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.spitzmarke {
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rot);
+}
+
+.leise {
+  color: var(--leise);
+}
+
+.text {
+  max-width: 44rem;
+}
+.text > * + * {
+  margin-top: 1rem;
+}
+.text h2 {
+  font-size: 1.6rem;
+  margin-top: 2.5rem;
+}
+.text ul,
+.text ol {
+  padding-left: 1.2rem;
+}
+
+/* Schaltflächen */
+.knopf {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.9rem;
+  padding: 0.6rem 1.5rem;
+  border: 2px solid var(--rot);
+  background: var(--rot);
+  color: var(--weiss);
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+.knopf:hover {
+  background: var(--edel);
+  border-color: var(--edel);
+  color: var(--weiss);
+}
+.knopf--kupfer {
+  background: var(--kupfer);
+  border-color: var(--kupfer);
+  color: var(--tinte);
+}
+.knopf--kupfer:hover {
+  background: #ffa758;
+  border-color: #ffa758;
+  color: var(--tinte);
+}
+.knopf--linie {
+  background: transparent;
+  border-color: var(--weiss);
+  color: var(--weiss);
+}
+.knopf--linie:hover {
+  background: var(--weiss);
+  border-color: var(--weiss);
+  color: var(--edel);
+}
+.knopf[disabled] {
+  background: #b9aeb0;
+  border-color: #b9aeb0;
+  color: var(--tinte);
+  cursor: not-allowed;
+}
+
+/* Kopf */
+.kopf {
+  background: var(--rot);
+}
+.kopf__innen {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+.marke {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--weiss);
+  text-decoration: none;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 1.35rem;
+  line-height: 1.1;
+}
+.marke:hover {
+  color: var(--weiss);
+}
+.marke img {
+  width: 2.6rem;
+  height: 3.1rem;
+}
+.menue {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 1.5rem;
+}
+.menue a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  color: var(--weiss);
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 0.95rem;
+}
+.menue a:hover {
+  text-decoration: underline;
+}
+.menue .korb {
+  background: var(--weiss);
+  color: var(--rot);
+  font-weight: 700;
+  padding: 0 1.1rem;
+}
+.menue .korb:hover {
+  text-decoration: none;
+  color: var(--edel);
+}
+
+/* Bühne */
+.buehne {
+  position: relative;
+  min-height: 38rem;
+  display: flex;
+  align-items: flex-end;
+  background: var(--edel);
+}
+.buehne__bild {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.buehne__schleier {
+  position: absolute;
+  inset: 0;
+  background: rgba(60, 8, 18, 0.62);
+}
+.buehne__inhalt {
+  position: relative;
+  width: 100%;
+  padding-top: 5rem;
+  padding-bottom: 4.5rem;
+  color: var(--weiss);
+}
+.buehne h1 {
+  font-size: clamp(2.8rem, 8vw, 4.2rem);
+  line-height: 1.05;
+  max-width: 46rem;
+}
+.buehne h1 span {
+  color: var(--kupfer);
+}
+.buehne p {
+  font-size: 1.25rem;
+  max-width: 36rem;
+}
+.knopfreihe {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Fakten */
+.fakten {
+  border-bottom: 1px solid var(--linie);
+}
+.fakten__innen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 3rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.fakten__innen > div {
+  flex: 1 1 14rem;
+}
+.fakten strong {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.25rem;
+}
+.fakten span {
+  font-size: 0.95rem;
+  color: var(--leise);
+}
+
+/* Sortenkarten */
+.gitter {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+.karte {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--linie);
+}
+.karte__bild {
+  width: 100%;
+  height: 16rem;
+  object-fit: cover;
+}
+.platzhalter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 16rem;
+  padding: 1rem;
+  background: #ede6db;
+  color: var(--leise);
+  font-size: 0.9rem;
+  text-align: center;
+}
+.platzhalter img {
+  width: 4.5rem;
+  opacity: 0.55;
+}
+.karte__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+  padding: 1.1rem 1.25rem 1.25rem;
+}
+.karte__fuss {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
+}
+.karte__preis {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+.karte__fuss a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  font-weight: 700;
+}
+
+/* Zweispalter */
+.zweispalter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2.5rem 4rem;
+}
+.zweispalter--umgekehrt {
+  flex-wrap: wrap-reverse;
+}
+.zweispalter__bild {
+  flex: 1 1 18rem;
+  max-width: 26rem;
+  width: 100%;
+}
+.zweispalter__bild img {
+  width: 100%;
+  height: 30rem;
+  object-fit: cover;
+}
+.zweispalter__text {
+  flex: 1 1 22rem;
+}
+.zitat {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--rot);
+}
+
+/* Inferno */
+.inferno {
+  background: #141110;
+  color: #f3e9d8;
+}
+.inferno h1,
+.inferno h2,
+.inferno h3 {
+  color: #f3e9d8;
+}
+.inferno h1 span {
+  color: #ff4b4f;
+}
+.inferno .spitzmarke,
+.inferno a {
+  color: #ff9b4a;
+}
+.inferno .leise {
+  color: #cfc3b4;
+}
+.inferno__logo {
+  flex: none;
+  width: 9rem;
+  height: 9rem;
+  border-radius: 50%;
+  background: #fff;
+}
+.inferno__logo--gross {
+  width: 13rem;
+  height: 13rem;
+}
+.inferno .knopf {
+  background: #f3e9d8;
+  border-color: #f3e9d8;
+  color: #141110;
+}
+.inferno .knopf:hover {
+  background: #fff;
+  border-color: #fff;
+  color: #141110;
+}
+.sauce {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.5rem;
+  border: 1px solid #4a3f38;
+}
+.schaerfe {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  color: #cfc3b4;
+}
+.schaerfe__punkte {
+  display: flex;
+  gap: 0.3rem;
+}
+.schaerfe__punkte i {
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  border: 2px solid #8a7f74;
+}
+.schaerfe__punkte i.an {
+  background: #ed1c24;
+  border-color: #ed1c24;
+}
+.inferno__trenner {
+  border-top: 1px solid #4a3f38;
+}
+
+/* Produktseite */
+.brotkrumen {
+  padding-top: 1.5rem;
+  font-size: 0.9rem;
+}
+.produkt {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem 4rem;
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+.produkt__bild {
+  flex: 1 1 22rem;
+  max-width: 36rem;
+  width: 100%;
+}
+.produkt__bild img,
+.produkt__bild .platzhalter {
+  width: 100%;
+  height: 30rem;
+  object-fit: cover;
+}
+.produkt__text {
+  flex: 1 1 20rem;
+}
+.preis {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 2.2rem;
+  line-height: 1;
+}
+.klein {
+  font-size: 0.9rem;
+}
+.kaufen {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1rem;
+  margin: 0;
+}
+.feld {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.feld label {
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.feld input,
+.feld textarea {
+  min-height: 2.9rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #8c7b74;
+  background: #fff;
+  color: var(--tinte);
+  font-family: var(--sans);
+  font-size: 1rem;
+}
+.feld--menge input {
+  width: 5rem;
+}
+.hinweise {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 0.95rem;
+}
+.hinweis-kasten {
+  padding: 1rem 1.25rem;
+  background: #fff;
+  border: 1px solid var(--linie);
+  border-left: 0;
+  border-right: 0;
+}
+
+/* Tabellen */
+.tabellenrahmen {
+  overflow-x: auto;
+  width: 100%;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 46rem;
+}
+th,
+td {
+  padding: 0.7rem 1rem 0.7rem 0;
+  border-bottom: 1px solid var(--linie);
+  text-align: left;
+  vertical-align: top;
+}
+th {
+  font-weight: 700;
+}
+td.zahl,
+th.zahl {
+  text-align: right;
+  padding-right: 0;
+}
+
+/* Fuß */
+.fuss {
+  background: var(--edel);
+  color: var(--weiss);
+}
+.fuss a {
+  color: var(--weiss);
+}
+.fuss__innen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem 4rem;
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+}
+.fuss__spalte {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1 1 14rem;
+  align-items: flex-start;
+}
+.fuss__spalte strong {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+}
+.fuss__alter {
+  border-top: 1px solid rgba(249, 247, 241, 0.3);
+  padding-top: 1.25rem;
+  padding-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.versteckt {
+  display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

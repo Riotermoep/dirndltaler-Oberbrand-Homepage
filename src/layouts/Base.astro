@@ -1,0 +1,67 @@
+---
+import '@fontsource/vollkorn/400.css';
+import '@fontsource/vollkorn/400-italic.css';
+import '@fontsource/vollkorn/700.css';
+import '@fontsource/merriweather-sans/300.css';
+import '@fontsource/merriweather-sans/400.css';
+import '@fontsource/merriweather-sans/700.css';
+import '../styles/global.css';
+import { SITE, NAVIGATION, RECHTLICHES } from '../data/site.js';
+
+const { titel, beschreibung = 'Edelbrände, Dirndlvodka und Raritäten vom Hof Oberbrand im Dirndltal.' } = Astro.props;
+const seitentitel = titel ? `${titel} · ${SITE.name}` : `${SITE.name} · Brennen mit Leidenschaft`;
+---
+
+<!doctype html>
+<html lang="de-AT">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{seitentitel}</title>
+    <meta name="description" content={beschreibung} />
+    {!SITE.live && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <header class="kopf">
+      <div class="rahmen kopf__innen">
+        <a class="marke" href="/">
+          <img src="/img/wappen.svg" alt="" width="42" height="50" />
+          <span>{SITE.name}</span>
+        </a>
+        <nav class="menue" aria-label="Hauptmenü">
+          {NAVIGATION.map((p) => <a href={p.link}>{p.titel}</a>)}
+          <a class="korb" href="/warenkorb/">Warenkorb (<span data-korb-anzahl>0</span>)</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="fuss">
+      <div class="rahmen fuss__innen">
+        <div class="fuss__spalte">
+          <strong>{SITE.firma}</strong>
+          <span>{SITE.strasse}, {SITE.ort}</span>
+          <a href={`tel:${SITE.telefonLink}`}>{SITE.telefon}</a>
+          <a href={`mailto:${SITE.mail}`}>{SITE.mail}</a>
+        </div>
+        <nav class="fuss__spalte" aria-label="Rechtliches">
+          {RECHTLICHES.map((p) => <a href={p.link}>{p.titel}</a>)}
+        </nav>
+        <div class="fuss__spalte">
+          <a class="knopf knopf--linie" href="/vertrag-widerrufen/">Vertrag widerrufen</a>
+          <a href={SITE.instagram} rel="noopener">Instagram</a>
+          <a href={SITE.facebook} rel="noopener">Facebook</a>
+        </div>
+      </div>
+      <div class="rahmen fuss__alter">
+        Verkauf von Spirituosen nur an Personen ab 18 Jahren. Bitte genieße verantwortungsvoll.
+      </div>
+    </footer>
+
+    <script src="/js/warenkorb.js" is:inline></script>
+  </body>
+</html>

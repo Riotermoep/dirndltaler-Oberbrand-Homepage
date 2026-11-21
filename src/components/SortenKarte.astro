@@ -1,0 +1,28 @@
+---
+import { preisText, eckdaten } from '../data/sorten.js';
+
+const { sorte } = Astro.props;
+const preis = preisText(sorte);
+const daten = eckdaten(sorte);
+---
+
+<article class="karte">
+  {
+    sorte.bild ? (
+      <img class="karte__bild" src={`/img/${sorte.bild}`} alt={sorte.bildAlt} loading="lazy" />
+    ) : (
+      <div class="platzhalter">
+        <img src="/img/wappen.svg" alt="" />
+      </div>
+    )
+  }
+  <div class="karte__text">
+    <span class="spitzmarke">{sorte.art}</span>
+    <h3>{sorte.name}</h3>
+    {daten && <span class="leise">{daten}</span>}
+    <div class="karte__fuss">
+      <span class="karte__preis">{preis ?? 'Preis folgt'}</span>
+      <a href={`/sorten/${sorte.slug}/`} aria-label={`${sorte.name} ansehen`}>Ansehen</a>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import InArbeit from '../components/InArbeit.astro';
+import { SITE } from '../data/site.js';
+---
+
+<Base titel="Versand und Zahlung">
+  <section class="abschnitt">
+    <div class="rahmen text">
+      <h1>Versand und Zahlung</h1>
+
+      <h2>Liefergebiet</h2>
+      <p>Wir liefern ausschließlich an Adressen in Österreich.</p>
+
+      <h2>Altersprüfung</h2>
+      <p>
+        Wir verkaufen Spirituosen nur an Personen ab 18 Jahren. Die Ware wird nur an volljährige Personen übergeben, bei
+        Zustellung und Abholung kann ein Lichtbildausweis verlangt werden.
+      </p>
+
+      <h2>Abholung ab Hof</h2>
+      <p>
+        Abholung ist nach telefonischer Vereinbarung möglich: <a href={`tel:${SITE.telefonLink}`}>{SITE.telefon}</a>.
+        Dabei fallen keine Versandkosten an.
+      </p>
+
+      <h2>Versandkosten und Zahlungsarten</h2>
+      <InArbeit />
+    </div>
+  </section>
+</Base>

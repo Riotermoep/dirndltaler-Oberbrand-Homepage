@@ -1,0 +1,80 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/site.js';
+
+const saucen = [
+  { grad: 1, name: 'Brennt ned', chili: 'Jalapeño' },
+  { grad: 2, name: 'Brennt scho', chili: 'Aji Cristal' },
+  { grad: 3, name: 'Brennt guad', chili: 'Scotch Bonnet' },
+  { grad: 4, name: 'Brennt 2 moi', chili: 'Bhut Jolokia Assam' },
+];
+---
+
+<Base
+  titel="Vom selben Hof: Oberbrands Inferno"
+  beschreibung="Oberbrands Inferno: handgemachte Chiliprodukte vom Hof Oberbrand. Erhältlich nur ab Hof."
+>
+  <div class="inferno">
+    <section>
+      <div class="rahmen zweispalter" style="padding-top: 4.5rem; padding-bottom: 3.5rem">
+        <img class="inferno__logo inferno__logo--gross" src="/img/inferno-logo.png" alt="Logo Oberbrands Inferno" />
+        <div class="zweispalter__text stapel" style="gap: 0.8rem">
+          <span class="spitzmarke">Vom selben Hof</span>
+          <h1>Oberbrands <span>Inferno</span></h1>
+          <p class="text" style="font-size: 1.15rem">
+            Handgemachte Chiliprodukte vom Hof. Angebaut, verarbeitet und abgefüllt am selben Ort, an dem auch gebrannt
+            wird.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="rahmen stapel" style="gap: 1.5rem; padding-bottom: 4rem">
+        <div class="stapel" style="gap: 0.4rem">
+          <span class="spitzmarke">Smoked Chili Sauce 2026</span>
+          <h2>Vier Schärfegrade, vier Sorten.</h2>
+        </div>
+        <div class="gitter">
+          {
+            saucen.map((s) => (
+              <article class="sauce">
+                <div class="schaerfe">
+                  <span class="schaerfe__punkte" role="img" aria-label={`Schärfe ${s.grad} von 4`}>
+                    {[1, 2, 3, 4].map((i) => (
+                      <i class={i <= s.grad ? 'an' : ''} />
+                    ))}
+                  </span>
+                  <span>Schärfe {s.grad} von 4</span>
+                </div>
+                <h3>„{s.name}“</h3>
+                <span class="leise">{s.chili}</span>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="inferno__trenner">
+      <div class="rahmen zweispalter" style="align-items: flex-start; padding-top: 3rem; padding-bottom: 4rem">
+        <div class="zweispalter__text stapel" style="gap: 0.5rem">
+          <h2 style="font-size: 1.6rem">Nur ab Hof</h2>
+          <p>
+            Die Chiliprodukte gibt es ausschließlich direkt am Hof, kein Versand. Melde dich vorher, damit jemand da
+            ist.
+          </p>
+          <span>{SITE.strasse}, {SITE.ort}</span>
+          <a href="https://www.instagram.com/oberbrandsinferno/" rel="noopener">Instagram: @oberbrandsinferno</a>
+        </div>
+        <div class="zweispalter__text stapel" style="gap: 0.5rem">
+          <h2 style="font-size: 1.6rem">Eigene Marke</h2>
+          <p>
+            Oberbrands Inferno ist eine eigene Marke vom selben Hof und wird nicht über den Shop der {SITE.firma}
+            verkauft.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</Base>
