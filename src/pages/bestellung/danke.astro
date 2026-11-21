@@ -7,9 +7,10 @@ import { SITE } from '../../data/site.js';
   <section class="abschnitt">
     <div class="rahmen text">
       <h1>Danke für deine Bestellung</h1>
+      <p class="versteckt" data-bestellnummer-zeile>Deine Bestellnummer: <strong data-bestellnummer></strong></p>
       <p>
-        Deine Zahlung ist bei uns eingegangen. Die Zahlungsbestätigung kommt per E-Mail vom Zahlungsdienstleister
-        Stripe.
+        Deine Bestellung ist bei uns eingegangen. Du bekommst gleich eine Eingangsbestätigung per E-Mail. Schau bitte
+        auch im Spam-Ordner nach. Sobald wir die Bestellung annehmen, folgt die Vertragsbestätigung.
       </p>
       <p>
         Bei Versand machen wir dein Paket in den nächsten Werktagen fertig. Bei Abholung ab Hof melden wir uns, um
@@ -24,6 +25,11 @@ import { SITE } from '../../data/site.js';
   </section>
   <script is:inline>
     // Nach einer abgeschlossenen Bestellung den Warenkorb leeren.
+    var nummer = new URLSearchParams(window.location.search).get('nr');
+    if (nummer && /^DO-[0-9]{6}-[A-Z0-9]{4}$/.test(nummer)) {
+      document.querySelector('[data-bestellnummer]').textContent = nummer;
+      document.querySelector('[data-bestellnummer-zeile]').classList.remove('versteckt');
+    }
     if (new URLSearchParams(window.location.search).get('bestellung')) {
       try {
         window.localStorage.removeItem('oberbrand-warenkorb');

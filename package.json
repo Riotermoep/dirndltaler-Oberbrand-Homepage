@@ -11,6 +11,7 @@
   "dependencies": {
     "@fontsource/merriweather-sans": "^5.0.0",
     "@fontsource/vollkorn": "^5.0.0",
-    "astro": "^5.0.0"
+    "astro": "^5.0.0",
+    "nodemailer": "^10.6.1"
   }
 }
