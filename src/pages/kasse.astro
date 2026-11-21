@@ -1,0 +1,135 @@
+---
+import Base from '../layouts/Base.astro';
+import { SORTEN } from '../data/sorten.js';
+import { SITE, kasseSichtbar } from '../data/site.js';
+
+const kasse = kasseSichtbar();
+const testmodus = !SITE.zahlungAktiv;
+
+const daten = {
+  versand: SITE.versand,
+  sorten: Object.fromEntries(
+    SORTEN.map((s) => [s.slug, { name: s.name, groessen: Object.fromEntries(s.groessen.map((g) => [g.ml, g.preis])) }]),
+  ),
+};
+---
+
+<Base titel="Kasse">
+  <section class="abschnitt">
+    <div class="rahmen stapel">
+      <h1>Kasse</h1>
+
+      {
+        !kasse ? (
+          <div class="hinweis-kasten text">
+            <p>
+              <strong>Die Online-Bestellung ist noch nicht freigeschaltet.</strong>
+            </p>
+            <p>
+              Bis dahin nehmen wir deine Bestellung gern telefonisch unter
+              <a href={`tel:${SITE.telefonLink}`}>{SITE.telefon}</a> oder per E-Mail an
+              <a href={`mailto:${SITE.mail}`}>{SITE.mail}</a> entgegen.
+            </p>
+          </div>
+        ) : (
+          <>
+            {testmodus && (
+              <p class="hinweis-kasten testhinweis">
+                <strong>Testmodus.</strong> Hier wird kein echtes Geld abgebucht und nichts verschickt. Testkarte: 4242
+                4242 4242 4242, beliebiges künftiges Ablaufdatum, beliebige Prüfziffer.
+              </p>
+            )}
+
+            <div data-kasse-leer class="stapel versteckt">
+              <p>Dein Warenkorb ist leer.</p>
+              <a class="knopf" href="/sorten/">Zu den Sorten</a>
+            </div>
+
+            <form data-kasse class="kasse stapel versteckt" novalidate>
+              <div class="stapel" style="width: 100%">
+                <h2>Deine Bestellung</h2>
+                <div class="tabellenrahmen">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th scope="col">Artikel</th>
+                        <th scope="col" class="zahl">Menge</th>
+                        <th scope="col" class="zahl">Preis</th>
+                      </tr>
+                    </thead>
+                    <tbody data-kasse-liste />
+                    <tfoot>
+                      <tr>
+                        <th scope="row" colspan="2">Zwischensumme</th>
+                        <td class="zahl" data-kasse-summe />
+                      </tr>
+                      <tr>
+                        <th scope="row" colspan="2" data-kasse-versandtitel>Versand innerhalb Österreichs</th>
+                        <td class="zahl" data-kasse-versand />
+                      </tr>
+                      <tr>
+                        <th scope="row" colspan="2">Gesamt inkl. USt.</th>
+                        <td class="zahl">
+                          <strong data-kasse-gesamt />
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+                <a class="klein" href="/warenkorb/">Warenkorb ändern</a>
+              </div>
+
+              <fieldset class="groessen">
+                <legend>Lieferung</legend>
+                <label class="groesse">
+                  <input type="radio" name="lieferart" value="versand" checked />
+                  <span class="groesse__menge">Versand innerhalb Österreichs</span>
+                </label>
+                <label class="groesse">
+                  <input type="radio" name="lieferart" value="abholung" />
+                  <span class="groesse__menge">Abholung ab Hof nach Anruf, ohne Versandkosten</span>
+                </label>
+              </fieldset>
+
+              <p class="klein leise" data-kasse-versandhinweis>
+                Ohne erfolgreiche Altersprüfung bei der Übergabe wird die Ware nicht ausgehändigt und an uns
+                zurückgesandt.
+              </p>
+
+              <p class="klein">{SITE.altershinweis}</p>
+
+              <label class="haken">
+                <input type="checkbox" name="alter" required />
+                <span>
+                  Ich bestätige, dass ich mindestens 18 Jahre alt bin.
+                </span>
+              </label>
+
+              <label class="haken">
+                <input type="checkbox" name="bedingungen" required />
+                <span>
+                  Ich habe die <a href="/agb/" target="_blank" rel="noopener">AGB</a> und die
+                  <a href="/widerrufsbelehrung/" target="_blank" rel="noopener">Widerrufsbelehrung</a> gelesen. Hinweise
+                  zum Umgang mit meinen Daten stehen in der
+                  <a href="/datenschutz/" target="_blank" rel="noopener">Datenschutzerklärung</a>.
+                </span>
+              </label>
+
+              <p class="klein leise">
+                Name, Adresse und Zahlungsart gibst du im nächsten Schritt auf der gesicherten Seite unseres
+                Zahlungsdienstleisters Stripe ein. Mit dem Abschluss der Zahlung dort ist die Bestellung verbindlich.
+              </p>
+
+              <p class="fehlermeldung versteckt" data-kasse-fehler role="alert"></p>
+
+              <button class="knopf" type="submit" data-kasse-knopf>Zahlungspflichtig bestellen</button>
+            </form>
+          </>
+        )
+      }
+    </div>
+  </section>
+
+  {kasse && <script type="application/json" id="sorten-daten" set:html={JSON.stringify(daten)} />}
+  {kasse && <script is:inline src="/js/kasse.js" defer />}
+</Base>

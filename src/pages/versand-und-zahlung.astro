@@ -1,31 +1,47 @@
 ---
 import Base from '../layouts/Base.astro';
-import InArbeit from '../components/InArbeit.astro';
 import { SITE } from '../data/site.js';
+import { euroText } from '../data/sorten.js';
 ---
 
 <Base titel="Versand und Zahlung">
   <section class="abschnitt">
-    <div class="rahmen text">
+    <div class="rahmen text recht">
       <h1>Versand und Zahlung</h1>
 
       <h2>Liefergebiet</h2>
       <p>Wir liefern ausschließlich an Adressen in Österreich.</p>
 
-      <h2>Altersprüfung</h2>
+      <h2>Versandkosten</h2>
       <p>
-        Wir verkaufen Spirituosen nur an Personen ab 18 Jahren. Die Ware wird nur an volljährige Personen übergeben, bei
-        Zustellung und Abholung kann ein Lichtbildausweis verlangt werden.
+        Der Versand kostet pauschal {euroText(SITE.versand.pauschale)} je Bestellung. Ab einem Bestellwert von
+        {euroText(SITE.versand.freiAb)} liefern wir versandkostenfrei. Alle Preise enthalten 20 % Umsatzsteuer.
+      </p>
+
+      <h2>Lieferzeit</h2>
+      <p>
+        Die Lieferung erfolgt innerhalb von 3 bis 5 Werktagen nach Zahlungseingang. Wir liefern jede Bestellung in
+        einer Sendung.
+      </p>
+
+      <h2>Altersprüfung</h2>
+      <p>Abgabe nur an Personen ab 18 Jahren. Übergabe nur gegen Vorlage eines amtlichen Lichtbildausweises.</p>
+      <p>
+        Ohne erfolgreiche Altersprüfung bei der Übergabe wird die Ware nicht ausgehändigt und an uns zurückgesandt.
+        Abstellgenehmigungen und die Hinterlegung in Paket- oder Abholstationen sind ausgeschlossen.
       </p>
 
       <h2>Abholung ab Hof</h2>
       <p>
-        Abholung ist nach telefonischer Vereinbarung möglich: <a href={`tel:${SITE.telefonLink}`}>{SITE.telefon}</a>.
-        Dabei fallen keine Versandkosten an.
+        Abholung ist nach telefonischer Terminvereinbarung möglich:
+        <a href={`tel:${SITE.telefonLink}`}>{SITE.telefon}</a>. Dabei fallen keine Versandkosten an.
       </p>
 
-      <h2>Versandkosten und Zahlungsarten</h2>
-      <InArbeit />
+      <h2>Zahlungsarten</h2>
+      <p>
+        {SITE.zahlungsarten}. Die Zahlung wird über den Zahlungsdienstleister {SITE.zahlungsdienst} abgewickelt und ist
+        mit der Bestellung fällig.
+      </p>
     </div>
   </section>
 </Base>

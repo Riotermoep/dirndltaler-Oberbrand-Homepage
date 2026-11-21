@@ -4,3 +4,8 @@
 
 [build.environment]
   NODE_VERSION = "22"
+
+[[redirects]]
+  from = "/vertrag-widerrufen/*"
+  to = "/widerruf/"
+  status = 301

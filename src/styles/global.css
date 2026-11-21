@@ -496,10 +496,65 @@ p {
 }
 .kaufen {
   display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin: 0;
+  width: 100%;
+}
+.kaufen__zeile {
+  display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
   gap: 1rem;
+}
+.groessen {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   margin: 0;
+  padding: 0;
+  border: 0;
+}
+.groessen legend {
+  padding: 0;
+  margin-bottom: 0.4rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.groesse {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  min-height: 3.4rem;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid #8c7b74;
+  background: #fff;
+  cursor: pointer;
+}
+.groesse:has(input:checked) {
+  border-color: var(--rot);
+  box-shadow: inset 0 0 0 1px var(--rot);
+}
+.groesse input {
+  flex: none;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin: 0;
+  accent-color: var(--rot);
+}
+.groesse__menge {
+  font-weight: 700;
+}
+.groesse__preis {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-left: auto;
+  line-height: 1.25;
+}
+.groesse__preis strong {
+  font-family: var(--serif);
+  font-size: 1.25rem;
 }
 .feld {
   display: flex;
@@ -602,5 +657,65 @@ th.zahl {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+}
+
+/* Kasse */
+.kasse {
+  max-width: 46rem;
+  gap: 1.4rem;
+}
+.haken {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  cursor: pointer;
+}
+.haken input {
+  flex: none;
+  width: 1.3rem;
+  height: 1.3rem;
+  margin: 0.2rem 0 0;
+  accent-color: var(--rot);
+}
+.testhinweis {
+  border-left: 4px solid var(--kupfer);
+  border-right: 0;
+}
+.fehlermeldung {
+  margin: 0;
+  padding: 0.8rem 1rem;
+  border-left: 4px solid #b70201;
+  background: #fff;
+  font-weight: 700;
+}
+.knopf[disabled] {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* Rechtstexte */
+.recht h2 {
+  font-size: 1.35rem;
+}
+.tabellenrahmen--breit {
+  max-width: none;
+  overflow-x: auto;
+}
+.tabelle--recht {
+  min-width: 46rem;
+  font-size: 0.9rem;
+}
+.tabelle--recht th,
+.tabelle--recht td {
+  vertical-align: top;
+}
+.recht h1 {
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+@media (max-width: 30rem) {
+  .recht h1 {
+    font-size: 2rem;
   }
 }
