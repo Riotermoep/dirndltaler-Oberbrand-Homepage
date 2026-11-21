@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import SortenKarte from '../../components/SortenKarte.astro';
-import { SORTEN, preisText, literpreisText, eckdaten } from '../../data/sorten.js';
+import { SORTEN, euroText, mlText, literpreisText, fuellmengenText, eckdaten } from '../../data/sorten.js';
 import { SITE } from '../../data/site.js';
 
 export function getStaticPaths() {
@@ -9,15 +9,14 @@ export function getStaticPaths() {
 }
 
 const { sorte } = Astro.props;
-const preis = preisText(sorte);
-const literpreis = literpreisText(sorte);
+const kaufbar = sorte.groessen.length > 0;
 const daten = eckdaten(sorte);
 const weitere = SORTEN.filter((s) => s.slug !== sorte.slug).slice(0, 3);
 const kopfzeile = [sorte.bezeichnung, daten].filter(Boolean).join(' · ');
 
 const angaben = [
   ['Bezeichnung', sorte.bezeichnung],
-  ['Nettofüllmenge', sorte.fuellmenge ? `${String(sorte.fuellmenge).replace('.', ',')} l` : null],
+  ['Nettofüllmenge', fuellmengenText(sorte)],
   ['Alkoholgehalt', sorte.vol ? `${String(sorte.vol).replace('.', ',')} % vol.` : null],
   ['Allergene', sorte.allergene],
   ['Hersteller', `${SITE.firma}, ${SITE.strasse}, ${SITE.ort}, Österreich`],
@@ -49,21 +48,34 @@ const angaben = [
         {sorte.text && <p class="text">{sorte.text}</p>}
 
         {
-          preis ? (
+          kaufbar ? (
             <>
-              <div>
-                <div class="preis">{preis}</div>
-                <span class="klein leise">
-                  inkl. USt., zzgl. <a href="/versand-und-zahlung/">Versand</a>
-                  {literpreis && ` · ${literpreis}`}
-                </span>
-              </div>
               <form class="kaufen" data-in-den-korb={sorte.slug}>
-                <div class="feld feld--menge">
-                  <label for="menge">Menge</label>
-                  <input id="menge" name="menge" type="number" min="1" value="1" />
+                <fieldset class="groessen">
+                  <legend>Größe</legend>
+                  {
+                    sorte.groessen.map((g, i) => (
+                      <label class="groesse">
+                        <input type="radio" name="groesse" value={g.ml} checked={i === 0} />
+                        <span class="groesse__menge">{mlText(g.ml)}</span>
+                        <span class="groesse__preis">
+                          <strong>{euroText(g.preis)}</strong>
+                          <span class="klein leise">{literpreisText(g)}</span>
+                        </span>
+                      </label>
+                    ))
+                  }
+                </fieldset>
+                <span class="klein leise">
+                  Preise inkl. USt., zzgl. <a href="/versand-und-zahlung/">Versand</a>
+                </span>
+                <div class="kaufen__zeile">
+                  <div class="feld feld--menge">
+                    <label for="menge">Menge</label>
+                    <input id="menge" name="menge" type="number" min="1" value="1" />
+                  </div>
+                  <button class="knopf" type="submit">In den Warenkorb</button>
                 </div>
-                <button class="knopf" type="submit">In den Warenkorb</button>
               </form>
               <p class="klein versteckt" data-korb-meldung role="status">
                 Liegt im Warenkorb. <a href="/warenkorb/">Zum Warenkorb</a>

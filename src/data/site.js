@@ -16,6 +16,8 @@ export const SITE = {
 
   // false: Warenkorb ohne Bezahlung. Wird mit dem Zahlungsanbieter aktiviert.
   zahlungAktiv: false,
+  // Versandkosten in Euro: Pauschale je Bestellung, frei ab diesem Warenwert
+  versand: { pauschale: 6.4, freiAb: 150 },
 };
 
 export const NAVIGATION = [

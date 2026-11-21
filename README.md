@@ -25,7 +25,7 @@ npm run dev
 | Farben und Schriften | `src/styles/global.css` |
 | Bilder | `public/img/` |
 
-Eine Sorte ohne Preis zeigt „Preis folgt“ und lässt sich nicht in den Warenkorb legen. Felder mit `null` werden nicht angezeigt.
+Versandkosten stehen in `src/data/site.js` (`versand`). Eine Sorte ohne Größen zeigt „Preis folgt“ und lässt sich nicht in den Warenkorb legen. Felder mit `null` werden nicht angezeigt.
 
 ## Schalter in `src/data/site.js`
 

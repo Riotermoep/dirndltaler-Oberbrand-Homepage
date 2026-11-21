@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import InArbeit from '../components/InArbeit.astro';
 import { SITE } from '../data/site.js';
+import { euroText } from '../data/sorten.js';
 ---
 
 <Base titel="Versand und Zahlung">
@@ -24,7 +25,13 @@ import { SITE } from '../data/site.js';
         Dabei fallen keine Versandkosten an.
       </p>
 
-      <h2>Versandkosten und Zahlungsarten</h2>
+      <h2>Versandkosten</h2>
+      <p>
+        Der Versand kostet pauschal {euroText(SITE.versand.pauschale)} je Bestellung. Ab einem Warenwert von
+        {euroText(SITE.versand.freiAb)} liefern wir versandkostenfrei.
+      </p>
+
+      <h2>Zahlungsarten</h2>
       <InArbeit />
     </div>
   </section>

@@ -3,7 +3,12 @@ import Base from '../layouts/Base.astro';
 import { SORTEN } from '../data/sorten.js';
 import { SITE } from '../data/site.js';
 
-const daten = Object.fromEntries(SORTEN.map((s) => [s.slug, { name: s.name, preis: s.preis }]));
+const daten = {
+  versand: SITE.versand,
+  sorten: Object.fromEntries(
+    SORTEN.map((s) => [s.slug, { name: s.name, groessen: Object.fromEntries(s.groessen.map((g) => [g.ml, g.preis])) }]),
+  ),
+};
 ---
 
 <Base titel="Warenkorb">
@@ -31,13 +36,23 @@ const daten = Object.fromEntries(SORTEN.map((s) => [s.slug, { name: s.name, prei
             <tfoot>
               <tr>
                 <th scope="row" colspan="2">Zwischensumme</th>
-                <td class="zahl"><strong data-korb-summe></strong></td>
+                <td class="zahl" data-korb-summe></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row" colspan="2">Versand innerhalb Österreichs</th>
+                <td class="zahl" data-korb-versand></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row" colspan="2">Gesamt</th>
+                <td class="zahl"><strong data-korb-gesamt></strong></td>
                 <td></td>
               </tr>
             </tfoot>
           </table>
         </div>
-        <p class="klein leise">Preise inkl. USt., zzgl. <a href="/versand-und-zahlung/">Versand</a>.</p>
+        <p class="klein leise">Preise inkl. USt. Bei Abholung ab Hof fallen keine <a href="/versand-und-zahlung/">Versandkosten</a> an.</p>
 
         {
           SITE.zahlungAktiv ? (
