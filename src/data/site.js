@@ -22,6 +22,11 @@ export const SITE = {
   firmenbuch: 'FN 553514 t',
   firmenbuchgericht: 'Landesgericht St. Pölten',
   uid: 'ATU76819007',
+
+  // Stehen so in AGB, Datenschutz und auf "Versand und Zahlung".
+  zahlungsarten: 'Kreditkarte, eps-Überweisung, Apple Pay, Google Pay, Barzahlung bei Abholung',
+  zahlungsdienst: 'Stripe Payments Europe Ltd., Irland',
+  altershinweis: 'Abgabe nur an Personen ab 18 Jahren. Übergabe nur gegen Vorlage eines amtlichen Lichtbildausweises.',
   // Versandkosten in Euro: Pauschale je Bestellung, frei ab diesem Warenwert
   versand: { pauschale: 6.4, freiAb: 150 },
 };

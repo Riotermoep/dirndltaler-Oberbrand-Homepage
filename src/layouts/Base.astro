@@ -52,13 +52,13 @@ const seitentitel = titel ? `${titel} · ${SITE.name}` : `${SITE.name} · Brenne
           {RECHTLICHES.map((p) => <a href={p.link}>{p.titel}</a>)}
         </nav>
         <div class="fuss__spalte">
-          <a class="knopf knopf--linie" href="/vertrag-widerrufen/">Vertrag widerrufen</a>
+          <a class="knopf knopf--linie" href="/widerruf/">Vertrag widerrufen</a>
           <a href={SITE.instagram} rel="noopener">Instagram</a>
           <a href={SITE.facebook} rel="noopener">Facebook</a>
         </div>
       </div>
       <div class="rahmen fuss__alter">
-        Verkauf von Spirituosen nur an Personen ab 18 Jahren. Bitte genieße verantwortungsvoll.
+        {SITE.altershinweis} Bitte genieße verantwortungsvoll.
       </div>
     </footer>
 

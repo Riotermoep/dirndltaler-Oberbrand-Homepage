@@ -38,17 +38,6 @@ function flach(wert, pfad, ziel) {
   }
 }
 
-function volljaehrig(geburtsdatum) {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(geburtsdatum || '')) return false;
-  const [jahr, monat, tag] = geburtsdatum.split('-').map(Number);
-  const geboren = new Date(Date.UTC(jahr, monat - 1, tag));
-  if (geboren.getUTCFullYear() !== jahr || geboren.getUTCMonth() !== monat - 1 || geboren.getUTCDate() !== tag) return false;
-  if (jahr < 1900) return false;
-  const heute = new Date();
-  const achtzehn = new Date(Date.UTC(jahr + 18, monat - 1, tag));
-  return achtzehn.getTime() <= heute.getTime();
-}
-
 export default async (request) => {
   if (request.method !== 'POST') return fehler(405, 'Nur POST ist erlaubt.');
 
@@ -74,11 +63,11 @@ export default async (request) => {
   }
 
   const lieferart = eingabe.lieferart === 'abholung' ? 'abholung' : 'versand';
-  if (!volljaehrig(eingabe.geburtsdatum)) {
-    return fehler(400, 'Wir verkaufen nur an Personen ab 18 Jahren. Bitte prüfe dein Geburtsdatum.');
+  if (eingabe.alterBestaetigt !== true) {
+    return fehler(400, 'Wir verkaufen nur an Personen ab 18 Jahren. Bitte bestätige dein Alter.');
   }
-  if (eingabe.alterBestaetigt !== true || eingabe.bedingungenGelesen !== true) {
-    return fehler(400, 'Bitte bestätige dein Alter und die Vertragsbedingungen.');
+  if (eingabe.bedingungenGelesen !== true) {
+    return fehler(400, 'Bitte bestätige, dass du AGB und Widerrufsbelehrung gelesen hast.');
   }
   if (!Array.isArray(eingabe.positionen) || eingabe.positionen.length === 0) {
     return fehler(400, 'Dein Warenkorb ist leer.');
@@ -123,7 +112,6 @@ export default async (request) => {
     billing_address_collection: 'required',
     metadata: {
       lieferart,
-      geburtsdatum: eingabe.geburtsdatum,
       alter_bestaetigt: 'ja',
       artikel: uebersicht.join(', ').slice(0, 480),
     },
@@ -132,8 +120,8 @@ export default async (request) => {
       submit: {
         message:
           lieferart === 'abholung'
-            ? 'Abholung ab Hof nach telefonischer Vereinbarung. Übergabe nur an Personen ab 18 Jahren gegen Ausweis.'
-            : 'Lieferung nur innerhalb Österreichs. Übergabe nur an Personen ab 18 Jahren gegen Ausweis.',
+            ? `Abholung ab Hof nach telefonischer Terminvereinbarung. ${SITE.altershinweis}`
+            : `Lieferung nur innerhalb Österreichs. ${SITE.altershinweis}`,
       },
     },
   };

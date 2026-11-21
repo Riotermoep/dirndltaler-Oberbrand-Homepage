@@ -91,17 +91,17 @@ const daten = {
                 </label>
               </fieldset>
 
-              <div class="feld">
-                <label for="geburtsdatum">Geburtsdatum</label>
-                <input id="geburtsdatum" name="geburtsdatum" type="date" autocomplete="bday" required />
-                <span class="klein leise">Wir verkaufen Spirituosen nur an Personen ab 18 Jahren.</span>
-              </div>
+              <p class="klein leise" data-kasse-versandhinweis>
+                Ohne erfolgreiche Altersprüfung bei der Übergabe wird die Ware nicht ausgehändigt und an uns
+                zurückgesandt.
+              </p>
+
+              <p class="klein">{SITE.altershinweis}</p>
 
               <label class="haken">
                 <input type="checkbox" name="alter" required />
                 <span>
-                  Ich bin mindestens 18 Jahre alt. Mir ist bekannt, dass die Ware nur an volljährige Personen übergeben
-                  wird und dabei ein Lichtbildausweis verlangt werden kann.
+                  Ich bestätige, dass ich mindestens 18 Jahre alt bin.
                 </span>
               </label>
 

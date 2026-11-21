@@ -1,30 +1,35 @@
 ---
 import Base from '../layouts/Base.astro';
-import InArbeit from '../components/InArbeit.astro';
 import { SITE } from '../data/site.js';
 ---
 
 <Base titel="Impressum">
   <section class="abschnitt">
-    <div class="rahmen text">
-      <h1>Impressum</h1>
+    <div class="rahmen text recht">
+      <h1>Impressum und Offenlegung</h1>
       <p>
         <strong>{SITE.firma}</strong><br />
         {SITE.strasse}, {SITE.ort}, Österreich
       </p>
       <p>
         Telefon: <a href={`tel:${SITE.telefonLink}`}>{SITE.telefon}</a><br />
-        E-Mail: <a href={`mailto:${SITE.mail}`}>{SITE.mail}</a>
+        E-Mail: <a href={`mailto:${SITE.mail}`}>{SITE.mail}</a><br />
+        Website: www.dirndltaler-oberbrand.at
       </p>
       <p>
         Rechtsform: Offene Gesellschaft<br />
-        Gesellschafter: Christoph Grubner, Christoph Karner<br />
+        Unbeschränkt haftende Gesellschafter: Christoph Grubner, Christoph Karner<br />
         Firmenbuchnummer: {SITE.firmenbuch}<br />
         Firmenbuchgericht: {SITE.firmenbuchgericht}<br />
         UID-Nummer: {SITE.uid}<br />
-        Unternehmensgegenstand: Erzeugung und Handel von/mit Spirituosen
+        Unternehmensgegenstand: Erzeugung von und Handel mit Spirituosen
       </p>
-      <InArbeit />
+      <p>Anwendbare Rechtsvorschriften: Gewerbeordnung 1994, abrufbar unter www.ris.bka.gv.at</p>
+      <p>
+        Grundlegende Richtung der Website (§ 25 MedienG): Information über die Brennerei und ihre Erzeugnisse sowie
+        deren Verkauf.
+      </p>
+      <p>Hinweis: Der Verkauf von Spirituosen erfolgt ausschließlich an Personen ab 18 Jahren.</p>
     </div>
   </section>
 </Base>

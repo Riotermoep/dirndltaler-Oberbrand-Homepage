@@ -70,6 +70,8 @@
     var abholung = lieferart() === 'abholung';
     var kosten = abholung || summe >= versand.freiAb ? 0 : versand.pauschale;
     versandTitel.textContent = abholung ? 'Abholung ab Hof' : 'Versand innerhalb Österreichs';
+    var hinweis = document.querySelector('[data-kasse-versandhinweis]');
+    if (hinweis) hinweis.classList.toggle('versteckt', abholung);
     summeFeld.textContent = euro.format(summe);
     versandFeld.textContent = kosten === 0 ? 'kostenlos' : euro.format(kosten);
     gesamtFeld.textContent = euro.format(summe + kosten);
@@ -80,13 +82,6 @@
     fehlerFeld.classList.toggle('versteckt', !text);
   }
 
-  function volljaehrig(wert) {
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(wert)) return false;
-    var t = wert.split('-').map(Number);
-    var achtzehn = new Date(t[0] + 18, t[1] - 1, t[2]);
-    return t[0] >= 1900 && achtzehn.getTime() <= Date.now();
-  }
-
   formular.querySelectorAll('input[name="lieferart"]').forEach(function (feld) {
     feld.addEventListener('change', zeichnen);
   });
@@ -94,12 +89,9 @@
   formular.addEventListener('submit', function (ereignis) {
     ereignis.preventDefault();
     fehler('');
-    var geburtsdatum = formular.querySelector('input[name="geburtsdatum"]').value;
     var alter = formular.querySelector('input[name="alter"]').checked;
     var bedingungen = formular.querySelector('input[name="bedingungen"]').checked;
 
-    if (!geburtsdatum) return fehler('Bitte gib dein Geburtsdatum an.');
-    if (!volljaehrig(geburtsdatum)) return fehler('Wir verkaufen nur an Personen ab 18 Jahren.');
     if (!alter) return fehler('Bitte bestätige, dass du mindestens 18 Jahre alt bist.');
     if (!bedingungen) return fehler('Bitte bestätige, dass du AGB und Widerrufsbelehrung gelesen hast.');
 
@@ -111,7 +103,6 @@
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
         lieferart: lieferart(),
-        geburtsdatum: geburtsdatum,
         alterBestaetigt: alter,
         bedingungenGelesen: bedingungen,
         positionen: positionen().map(function (p) {

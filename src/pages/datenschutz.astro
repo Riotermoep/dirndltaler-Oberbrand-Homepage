@@ -1,22 +1,131 @@
 ---
 import Base from '../layouts/Base.astro';
-import InArbeit from '../components/InArbeit.astro';
 import { SITE } from '../data/site.js';
 ---
 
-<Base titel="Datenschutz">
+<Base titel="Datenschutzerklärung">
   <section class="abschnitt">
-    <div class="rahmen text">
-      <h1>Datenschutz</h1>
+    <div class="rahmen text recht">
+      <h1>Datenschutzerklärung</h1>
+
+      <h2>1. Verantwortlicher</h2>
       <p>
-        Verantwortlich für die Verarbeitung personenbezogener Daten auf dieser Website ist die {SITE.firma},
-        {SITE.strasse}, {SITE.ort}, <a href={`mailto:${SITE.mail}`}>{SITE.mail}</a>.
+        {SITE.firma}, {SITE.strasse}, {SITE.ort}, <a href={`mailto:${SITE.mail}`}>{SITE.mail}</a>, {SITE.telefon}. Ein
+        Datenschutzbeauftragter ist nicht bestellt, da keine gesetzliche Pflicht besteht.
       </p>
+
+      <h2>2. Welche Daten wir verarbeiten und wozu</h2>
+      <div class="tabellenrahmen tabellenrahmen--breit">
+        <table class="tabelle--recht">
+          <thead>
+            <tr>
+              <th scope="col">Anlass</th>
+              <th scope="col">Daten</th>
+              <th scope="col">Zweck</th>
+              <th scope="col">Rechtsgrundlage</th>
+              <th scope="col">Speicherdauer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Besuch der Website</th>
+              <td>IP-Adresse, Zeitpunkt, abgerufene Seite, Browser</td>
+              <td>Auslieferung und Sicherheit der Website</td>
+              <td>Berechtigtes Interesse, Art. 6 Abs. 1 lit. f DSGVO</td>
+              <td>nach der Frist des Hosters</td>
+            </tr>
+            <tr>
+              <th scope="row">Bestellung</th>
+              <td>Name, Anschrift, E-Mail, Telefon, bestellte Waren</td>
+              <td>Vertragserfüllung, Aufbewahrung der Belege</td>
+              <td>Art. 6 Abs. 1 lit. b und lit. c DSGVO</td>
+              <td>7 Jahre (§ 132 BAO)</td>
+            </tr>
+            <tr>
+              <th scope="row">Altersprüfung</th>
+              <td>Bestätigung der Volljährigkeit bei der Bestellung; Ergebnis der Ausweisprüfung bei der Übergabe (ja oder nein, Datum). Kein Geburtsdatum, keine Ausweiskopie</td>
+              <td>Jugendschutz (§ 114 GewO 1994, NÖ Jugendgesetz)</td>
+              <td>Art. 6 Abs. 1 lit. c DSGVO, hilfsweise lit. f</td>
+              <td>Mit den Bestelldaten, 7 Jahre</td>
+            </tr>
+            <tr>
+              <th scope="row">Zahlung</th>
+              <td>Zahlungsart, Betrag, Transaktionskennung</td>
+              <td>Zahlungsabwicklung</td>
+              <td>Art. 6 Abs. 1 lit. b DSGVO</td>
+              <td>7 Jahre</td>
+            </tr>
+            <tr>
+              <th scope="row">Versand</th>
+              <td>Name, Anschrift, ggf. E-Mail für die Sendungsverfolgung</td>
+              <td>Zustellung, Altersprüfung bei Übergabe</td>
+              <td>Art. 6 Abs. 1 lit. b DSGVO</td>
+              <td>bis zur Zustellung beim Dienstleister</td>
+            </tr>
+            <tr>
+              <th scope="row">Widerruf über die Online-Funktion</th>
+              <td>Name, Bestellnummer, E-Mail, Zeitpunkt</td>
+              <td>Abwicklung des Rücktritts</td>
+              <td>Art. 6 Abs. 1 lit. c DSGVO</td>
+              <td>7 Jahre</td>
+            </tr>
+            <tr>
+              <th scope="row">Kontakt per E-Mail oder Telefon</th>
+              <td>Angaben aus der Anfrage</td>
+              <td>Beantwortung</td>
+              <td>Art. 6 Abs. 1 lit. b oder lit. f DSGVO</td>
+              <td>6 Monate nach Erledigung</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>3. Empfänger</h2>
+      <ul>
+        <li>
+          Hosting: Netlify, Inc., USA, als Auftragsverarbeiter auf Grundlage der Datenverarbeitungsvereinbarung von
+          Netlify. Verarbeitet werden technische Zugriffsdaten wie IP-Adresse, Zeitpunkt und abgerufene Seite. Netlify
+          ist nach eigenen Angaben unter dem EU-US Data Privacy Framework zertifiziert (Angemessenheitsbeschluss vom 10.
+          Juli 2023, Art. 45 DSGVO); ergänzend gelten Standardvertragsklauseln (Art. 46 Abs. 2 lit. c DSGVO).
+        </li>
+        <li>
+          Zahlungsdienstleister: {SITE.zahlungsdienst}. Name, Anschrift, E-Mail, Telefon und Zahlungsdaten gibst du
+          direkt auf der Bezahlseite von Stripe ein.
+        </li>
+        <li>
+          Versanddienstleister: der von uns beauftragte Paketdienst. Er erhält Name und Anschrift und prüft bei der
+          Übergabe das Alter.
+        </li>
+        <li>Steuerberatung und Behörden, soweit gesetzlich erforderlich.</li>
+      </ul>
+
+      <h2>4. Cookies und lokale Speicherung</h2>
       <p>
-        Diese Website setzt keine Analyse- oder Werbe-Cookies ein. Der Warenkorb wird ausschließlich in deinem Browser
-        gespeichert. Schriften und Bilder werden vom eigenen Server geladen.
+        Wir speichern in deinem Browser nur, was für den Betrieb des Shops unbedingt erforderlich ist, etwa den
+        Warenkorb. Eine Einwilligung ist dafür nicht erforderlich (§ 165 Abs. 3 TKG 2021). Analyse- oder Werbe-Cookies
+        setzen wir nicht ein.
       </p>
-      <InArbeit />
+
+      <h2>5. Schriften und eingebundene Inhalte</h2>
+      <p>
+        Schriften und Bilder liefern wir vom eigenen Server aus. Es werden keine Inhalte von Dritten nachgeladen. Links
+        zu Instagram und Facebook sind einfache Verweise ohne Datenweitergabe.
+      </p>
+
+      <h2>6. Deine Rechte</h2>
+      <p>
+        Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit und Widerspruch.
+        Wende dich dazu an <a href={`mailto:${SITE.mail}`}>{SITE.mail}</a>. Du kannst dich außerdem bei der
+        Österreichischen Datenschutzbehörde beschweren, Barichgasse 40–42, 1030 Wien, dsb@dsb.gv.at.
+      </p>
+
+      <h2>7. Pflicht zur Bereitstellung</h2>
+      <p>
+        Ohne die für die Bestellung nötigen Daten und ohne die Bestätigung deiner Volljährigkeit können wir keinen
+        Vertrag schließen.
+      </p>
+
+      <p class="leise">Stand: 21. November 2026</p>
     </div>
   </section>
 </Base>

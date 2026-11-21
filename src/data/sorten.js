@@ -135,7 +135,7 @@ export function preisText(sorte) {
 }
 
 export function literpreisText(groesse) {
-  return `${euro.format((groesse.preis / groesse.ml) * 1000)} je Liter`;
+  return `Grundpreis ${euro.format((groesse.preis / groesse.ml) * 1000)} je Liter`;
 }
 
 export function fuellmengenText(sorte) {

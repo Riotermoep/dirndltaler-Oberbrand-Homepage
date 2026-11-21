@@ -693,3 +693,29 @@ th.zahl {
   opacity: 0.6;
   cursor: progress;
 }
+
+/* Rechtstexte */
+.recht h2 {
+  font-size: 1.35rem;
+}
+.tabellenrahmen--breit {
+  max-width: none;
+  overflow-x: auto;
+}
+.tabelle--recht {
+  min-width: 46rem;
+  font-size: 0.9rem;
+}
+.tabelle--recht th,
+.tabelle--recht td {
+  vertical-align: top;
+}
+.recht h1 {
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+@media (max-width: 30rem) {
+  .recht h1 {
+    font-size: 2rem;
+  }
+}
