@@ -536,6 +536,7 @@ p {
   box-shadow: inset 0 0 0 1px var(--rot);
 }
 .groesse input {
+  flex: none;
   width: 1.15rem;
   height: 1.15rem;
   margin: 0;
@@ -657,4 +658,38 @@ th.zahl {
   html {
     scroll-behavior: auto;
   }
+}
+
+/* Kasse */
+.kasse {
+  max-width: 46rem;
+  gap: 1.4rem;
+}
+.haken {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  cursor: pointer;
+}
+.haken input {
+  flex: none;
+  width: 1.3rem;
+  height: 1.3rem;
+  margin: 0.2rem 0 0;
+  accent-color: var(--rot);
+}
+.testhinweis {
+  border-left: 4px solid var(--kupfer);
+  border-right: 0;
+}
+.fehlermeldung {
+  margin: 0;
+  padding: 0.8rem 1rem;
+  border-left: 4px solid #b70201;
+  background: #fff;
+  font-weight: 700;
+}
+.knopf[disabled] {
+  opacity: 0.6;
+  cursor: progress;
 }

@@ -1,7 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
 import { SORTEN } from '../data/sorten.js';
-import { SITE } from '../data/site.js';
+import { SITE, kasseSichtbar } from '../data/site.js';
+
+const kasse = kasseSichtbar();
 
 const daten = {
   versand: SITE.versand,
@@ -55,7 +57,7 @@ const daten = {
         <p class="klein leise">Preise inkl. USt. Bei Abholung ab Hof fallen keine <a href="/versand-und-zahlung/">Versandkosten</a> an.</p>
 
         {
-          SITE.zahlungAktiv ? (
+          kasse ? (
             <a class="knopf" href="/kasse/">Zur Kasse</a>
           ) : (
             <div class="hinweis-kasten text">

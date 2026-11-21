@@ -39,3 +39,9 @@ Versandkosten stehen in `src/data/site.js` (`versand`). Eine Sorte ohne Größen
 - Kasse mit Schaltfläche „zahlungspflichtig bestellen“, Geburtsdatum und Zahlung über Stripe
 - Bestätigungs-E-Mails für Bestellung und Widerruf, Dankeseite für das Widerrufsformular
 - Anbieterangabe für Oberbrands Inferno
+
+## Kasse und Bezahlung
+
+- Die Kasse (`/kasse/`) schickt die Bestellung an `netlify/functions/checkout.mjs`. Diese Funktion rechnet die Preise aus `src/data/sorten.js` neu und legt bei Stripe einen Bezahlvorgang an.
+- Der geheime Stripe-Schlüssel steht nur in Netlify unter „Keys and secrets“ als `STRIPE_SECRET_KEY`, nie in diesem Repository.
+- Solange `zahlungAktiv` in `src/data/site.js` auf `false` steht, ist die Kasse nur in den Vorschauen sichtbar und nimmt nur Testzahlungen an.

@@ -1,0 +1,36 @@
+---
+import Base from '../../layouts/Base.astro';
+import { SITE } from '../../data/site.js';
+---
+
+<Base titel="Danke für deine Bestellung">
+  <section class="abschnitt">
+    <div class="rahmen text">
+      <h1>Danke für deine Bestellung</h1>
+      <p>
+        Deine Zahlung ist bei uns eingegangen. Die Zahlungsbestätigung kommt per E-Mail vom Zahlungsdienstleister
+        Stripe.
+      </p>
+      <p>
+        Bei Versand machen wir dein Paket in den nächsten Werktagen fertig. Bei Abholung ab Hof melden wir uns, um
+        einen Termin auszumachen. Du kannst uns auch gleich anrufen:
+        <a href={`tel:${SITE.telefonLink}`}>{SITE.telefon}</a>.
+      </p>
+      <p>
+        Fragen zur Bestellung? Schreib uns an <a href={`mailto:${SITE.mail}`}>{SITE.mail}</a>.
+      </p>
+      <p><a class="knopf" href="/">Zur Startseite</a></p>
+    </div>
+  </section>
+  <script is:inline>
+    // Nach einer abgeschlossenen Bestellung den Warenkorb leeren.
+    if (new URLSearchParams(window.location.search).get('bestellung')) {
+      try {
+        window.localStorage.removeItem('oberbrand-warenkorb');
+      } catch (e) {}
+      document.querySelectorAll('[data-korb-anzahl]').forEach(function (el) {
+        el.textContent = '0';
+      });
+    }
+  </script>
+</Base>
