@@ -53,3 +53,5 @@ Versandkosten stehen in `src/data/site.js` (`versand`). Eine Sorte ohne Größen
 - Der Online-Widerruf (`/widerruf/`) wird von `netlify/functions/widerruf.mjs` bestätigt.
 - Der Wortlaut von AGB und Widerrufsbelehrung steht nur in `src/data/rechtstexte.js`.
 - In Netlify unter „Keys and secrets“ nötig: `STRIPE_WEBHOOK_SECRET`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`.
+
+Nach einer Änderung unter „Keys and secrets“ muss die Seite neu gebaut werden, damit die Funktionen die neuen Werte bekommen.
