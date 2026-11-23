@@ -12,7 +12,7 @@ export const SITE = {
 
   // false: Suchmaschinen sollen die Seite noch nicht aufnehmen.
   // Erst beim Start auf der echten Domain auf true stellen.
-  live: false,
+  live: true,
 
   // false: Auf der echten Seite gibt es den Warenkorb ohne Bezahlung.
   // In den Vorschauen von Netlify ist die Kasse immer an und läuft im
