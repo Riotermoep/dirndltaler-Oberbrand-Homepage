@@ -8,7 +8,17 @@ import '@fontsource/merriweather-sans/700.css';
 import '../styles/global.css';
 import { SITE, NAVIGATION, RECHTLICHES } from '../data/site.js';
 
-const { titel, beschreibung = 'Edelbrände, Liköre, Vodka und Raritäten vom Hof Oberbrand im Dirndltal.' } = Astro.props;
+const {
+  titel,
+  beschreibung = 'Edelbrände, Liköre, Vodka und Raritäten vom Hof Oberbrand im Dirndltal.',
+  nichtListen = false,
+} = Astro.props;
+
+// Suchmaschinen dürfen nur die echte Seite aufnehmen: keine Vorschauen und
+// keine Seiten wie Warenkorb oder Kasse.
+const vorschau = typeof process !== 'undefined' && process.env.CONTEXT !== undefined && process.env.CONTEXT !== 'production';
+const gesperrt = !SITE.live || vorschau || nichtListen;
+const kanonisch = new URL(Astro.url.pathname, Astro.site).href;
 const seitentitel = titel ? `${titel} · ${SITE.name}` : `${SITE.name} · Brennen mit Leidenschaft`;
 ---
 
@@ -19,7 +29,7 @@ const seitentitel = titel ? `${titel} · ${SITE.name}` : `${SITE.name} · Brenne
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{seitentitel}</title>
     <meta name="description" content={beschreibung} />
-    {!SITE.live && <meta name="robots" content="noindex, nofollow" />}
+    {gesperrt ? <meta name="robots" content="noindex, nofollow" /> : <link rel="canonical" href={kanonisch} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body>
