@@ -4,6 +4,10 @@
 
 [build.environment]
   NODE_VERSION = "22"
+  # Server, Port und Absenderadresse des Postfachs sind keine Geheimnisse.
+  # Die Adresse steht ohnehin auf jeder Seite; ohne diese Zeile bricht
+  # Netlifys Geheimnis-Prüfung den Aufbau ab. Das Passwort wird weiter geprüft.
+  SECRETS_SCAN_OMIT_KEYS = "SMTP_HOST,SMTP_PORT,SMTP_USER"
 
 [[redirects]]
   from = "/vertrag-widerrufen/*"
