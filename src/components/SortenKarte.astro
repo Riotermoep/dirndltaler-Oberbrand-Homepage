@@ -8,8 +8,12 @@ const daten = eckdaten(sorte);
 
 <article class="karte">
   {
-    sorte.bild ? (
-      <img class:list={['karte__bild', sorte.freigestellt && 'bild--flasche']} src={`/img/${sorte.bild}`} alt={sorte.bildAlt} loading="lazy" />
+    sorte.bild && sorte.freigestellt ? (
+      <div class="flaschenbild">
+        <img src={`/img/${sorte.bild}`} alt={sorte.bildAlt} loading="lazy" />
+      </div>
+    ) : sorte.bild ? (
+      <img class="karte__bild" src={`/img/${sorte.bild}`} alt={sorte.bildAlt} loading="lazy" />
     ) : (
       <div class="platzhalter">
         <img src="/img/wappen.svg" alt="" />

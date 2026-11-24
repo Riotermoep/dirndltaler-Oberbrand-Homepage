@@ -774,8 +774,53 @@ th.zahl {
 }
 
 /* Freigestellte Flaschenfotos: ganz zeigen, Grund wie im Foto */
-.bild--flasche,
-.produkt__bild img.bild--flasche {
+/* Freigestellte Flasche: Rahmen in Kupfer und Wappen zeichnet die Seite, nicht das Foto. */
+.flaschenbild {
+  position: relative;
+  height: 16rem;
+  background: var(--weiss);
+}
+.produkt__bild .flaschenbild {
+  height: auto;
+  aspect-ratio: 1;
+  max-height: 32rem;
+}
+.flaschenbild img,
+.produkt__bild .flaschenbild img {
+  display: block;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
-  background: #f9f7f1;
+  padding: 0.9rem 0.9rem 0.6rem;
+}
+.flaschenbild::before {
+  content: '';
+  position: absolute;
+  inset: 0.6rem;
+  border: 1.5px solid var(--kupfer);
+  pointer-events: none;
+}
+.flaschenbild::after {
+  content: '';
+  position: absolute;
+  top: 1.15rem;
+  left: 1.15rem;
+  width: 1.7rem;
+  aspect-ratio: 645 / 777;
+  background: var(--rot);
+  -webkit-mask: url('/img/wappen.svg') center / contain no-repeat;
+  mask: url('/img/wappen.svg') center / contain no-repeat;
+  pointer-events: none;
+}
+.produkt__bild .flaschenbild::before {
+  inset: 1rem;
+  border-width: 2px;
+}
+.produkt__bild .flaschenbild::after {
+  top: 1.9rem;
+  left: 1.9rem;
+  width: 2.8rem;
+}
+.produkt__bild .flaschenbild img {
+  padding: 1.5rem 1.5rem 1.2rem;
 }
