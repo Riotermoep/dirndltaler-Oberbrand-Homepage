@@ -9,7 +9,7 @@ const daten = eckdaten(sorte);
 <article class="karte">
   {
     sorte.bild ? (
-      <img class="karte__bild" src={`/img/${sorte.bild}`} alt={sorte.bildAlt} loading="lazy" />
+      <img class:list={['karte__bild', sorte.freigestellt && 'bild--flasche']} src={`/img/${sorte.bild}`} alt={sorte.bildAlt} loading="lazy" />
     ) : (
       <div class="platzhalter">
         <img src="/img/wappen.svg" alt="" />

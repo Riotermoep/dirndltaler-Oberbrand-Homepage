@@ -34,7 +34,7 @@ const angaben = [
       <div class="produkt__bild">
         {
           sorte.bild ? (
-            <img src={`/img/${sorte.bild}`} alt={sorte.bildAlt} />
+            <img class:list={[sorte.freigestellt && 'bild--flasche']} src={`/img/${sorte.bild}`} alt={sorte.bildAlt} />
           ) : (
             <div class="platzhalter">
               <img src="/img/wappen.svg" alt="" />
