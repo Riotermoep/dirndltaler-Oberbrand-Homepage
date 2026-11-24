@@ -13,3 +13,8 @@
   from = "/vertrag-widerrufen/*"
   to = "/widerruf/"
   status = 301
+
+[[redirects]]
+  from = "/sorten/dirndlvodkalikoer/*"
+  to = "/sorten/dirndlvodka/"
+  status = 301

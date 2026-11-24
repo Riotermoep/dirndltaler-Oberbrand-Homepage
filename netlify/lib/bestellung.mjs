@@ -191,7 +191,7 @@ export function vertragText(b) {
       'GEWÄHRLEISTUNG',
       linie,
       '',
-      'Die EU-weit einheitliche Mitteilung über dein gesetzliches Gewährleistungsrecht findest du unter https://www.dirndltaler-oberbrand.at/gewaehrleistung',
+      'Die EU-weit einheitliche Mitteilung über dein gesetzliches Gewährleistungsrecht hängt dieser E-Mail als Bild an. Du findest sie auch unter https://www.dirndltaler-oberbrand.at/gewaehrleistung',
       '',
       linie,
       `ALLGEMEINE GESCHÄFTSBEDINGUNGEN (Stand ${STAND})`,

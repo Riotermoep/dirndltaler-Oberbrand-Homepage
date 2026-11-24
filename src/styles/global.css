@@ -719,3 +719,36 @@ th.zahl {
     font-size: 2rem;
   }
 }
+
+/* EU-Mitteilung zur Gewährleistung: Bild immer vollständig und unverändert */
+.gewaehr {
+  display: grid;
+  grid-template-columns: minmax(0, 22rem) minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: start;
+}
+.gewaehr--klein {
+  grid-template-columns: minmax(0, 13rem) minmax(0, 1fr);
+  gap: 1.2rem;
+}
+.gewaehr__bild {
+  display: block;
+  border: 1px solid #d8d0c4;
+  background: #fff;
+}
+.gewaehr img,
+.gewaehr__gross {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.gewaehr__gross {
+  max-width: 44rem;
+  border: 1px solid #d8d0c4;
+}
+@media (max-width: 44rem) {
+  .gewaehr,
+  .gewaehr--klein {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

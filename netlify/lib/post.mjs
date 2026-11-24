@@ -33,7 +33,7 @@ export function einzeilig(text, laenge = 200) {
     .slice(0, laenge);
 }
 
-export async function senden({ an, betreff, text, antwortAn }) {
+export async function senden({ an, betreff, text, antwortAn, anhaenge }) {
   const absender = process.env.MAIL_FROM || SITE.mail;
   return verbindung().sendMail({
     from: { name: SITE.name, address: absender },
@@ -41,6 +41,7 @@ export async function senden({ an, betreff, text, antwortAn }) {
     replyTo: antwortAn || SITE.mail,
     subject: einzeilig(betreff, 150),
     text,
+    attachments: anhaenge,
   });
 }
 
