@@ -58,9 +58,9 @@ export const SORTEN = [
   },
   { slug: 'aronia', name: 'Aronia', art: 'Edelbrand', bezeichnung: null, vol: null, groessen: [], allergene: null, text: null, bild: null, bildAlt: null },
   {
-    slug: 'dirndlvodkalikoer',
-    name: 'Dirndlvodkalikör',
-    art: 'Likör mit Dirndl',
+    slug: 'dirndlvodka',
+    name: 'Dirndlvodka',
+    art: 'Vodka-Likör',
     bezeichnung: null,
     vol: 30,
     groessen: [

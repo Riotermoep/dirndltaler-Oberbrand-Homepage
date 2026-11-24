@@ -15,6 +15,7 @@ const weitere = SORTEN.filter((s) => s.slug !== sorte.slug).slice(0, 3);
 const kopfzeile = [sorte.bezeichnung, daten].filter(Boolean).join(' · ');
 
 const angaben = [
+  ['Art', sorte.art],
   ['Bezeichnung', sorte.bezeichnung],
   ['Nettofüllmenge', fuellmengenText(sorte)],
   ['Alkoholgehalt', sorte.vol ? `${String(sorte.vol).replace('.', ',')} % vol.` : null],
@@ -123,6 +124,27 @@ const angaben = [
       <h2>Weitere Sorten</h2>
       <div class="gitter">
         {weitere.map((s) => <SortenKarte sorte={s} />)}
+      </div>
+    </div>
+  </section>
+  <section class="abschnitt abschnitt--hell">
+    <div class="rahmen gewaehr">
+      <a href="/gewaehrleistung/" class="gewaehr__bild">
+        <img
+          src="/img/gewaehrleistung-de.png"
+          alt="Amtliche EU-Mitteilung: mindestens zwei Jahre gesetzliche Gewährleistung für Waren, die in der Europäischen Union verkauft werden. Zum Vergrößern öffnen."
+          width="1654"
+          height="2339"
+          loading="lazy"
+        />
+      </a>
+      <div class="text">
+        <h2>Gesetzliche Gewährleistung</h2>
+        <p>
+          Für alle unsere Waren gilt das gesetzliche Gewährleistungsrecht. Die nebenstehende Mitteilung der
+          Europäischen Union fasst deine Rechte zusammen.
+        </p>
+        <p><a href="/gewaehrleistung/">Mitteilung in voller Größe ansehen</a></p>
       </div>
     </div>
   </section>

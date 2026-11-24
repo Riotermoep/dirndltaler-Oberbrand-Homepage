@@ -5,6 +5,11 @@
 import { SITE } from '../../src/data/site.js';
 import { postBereit, senden, mitFuss, zeitpunkt } from '../lib/post.mjs';
 import { stripe, bestellungLaden, codeGueltig, vertragText } from '../lib/bestellung.mjs';
+import { GEWAEHRLEISTUNG_PNG } from '../lib/gewaehrleistung-bild.mjs';
+
+const ANHAENGE = [
+  { filename: 'Gesetzliche-Gewaehrleistung-EU-Mitteilung.png', content: GEWAEHRLEISTUNG_PNG, contentType: 'image/png' },
+];
 
 export const config = { path: '/api/annehmen' };
 
@@ -46,11 +51,13 @@ export default async (request) => {
       an: b.email,
       betreff: `Vertragsbestätigung zu deiner Bestellung ${b.nummer}`,
       text: mitFuss(vertragText(b)),
+      anhaenge: ANHAENGE,
     });
     await senden({
       an: SITE.mail,
       betreff: `Kopie: Vertragsbestätigung ${b.nummer} an ${b.email}`,
       text: mitFuss(vertragText(b)),
+      anhaenge: ANHAENGE,
     });
 
     if (b.zahlung) {
