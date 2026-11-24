@@ -304,10 +304,30 @@ p {
   width: 100%;
 }
 .karte {
+  position: relative;
   display: flex;
   flex-direction: column;
   background: #fff;
   border: 1px solid var(--linie);
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+/* Die ganze Karte ist anklickbar: Der Link "Ansehen" deckt sie vollständig ab. */
+.karte__fuss a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+.karte:hover,
+.karte:focus-within {
+  border-color: var(--rot);
+  box-shadow: 0 6px 18px rgba(43, 30, 26, 0.12);
+}
+.karte__fuss a:focus-visible {
+  outline: none;
+}
+.karte:has(a:focus-visible) {
+  outline: 3px solid var(--kupfer);
+  outline-offset: 2px;
 }
 .karte__bild {
   width: 100%;
