@@ -110,10 +110,12 @@ function adresseText(name, adresse) {
 }
 
 export function uebersichtText(b) {
-  const zeilen = b.positionen.map((p) => {
-    const grund = p.grundpreis ? ` · Grundpreis ${cent(p.grundpreis)} je Liter` : '';
-    return `${p.menge} x ${p.name}\n    je ${cent(p.einzel)}${grund}\n    ${cent(p.summe)}`;
-  });
+  // Der Grundpreis je Liter steht auf den Sortenseiten, in der E-Mail nicht.
+  const zeilen = b.positionen.map((p) =>
+    p.menge > 1
+      ? `${p.menge} x ${p.name} (je ${cent(p.einzel)}): ${cent(p.summe)}`
+      : `1 x ${p.name}: ${cent(p.summe)}`,
+  );
   const liefer =
     b.lieferart === 'abholung'
       ? 'Abholung ab Hof nach telefonischer Terminvereinbarung'
