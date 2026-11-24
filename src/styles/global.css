@@ -772,3 +772,10 @@ th.zahl {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* Freigestellte Flaschenfotos: ganz zeigen, Grund wie im Foto */
+.bild--flasche,
+.produkt__bild img.bild--flasche {
+  object-fit: contain;
+  background: #f9f7f1;
+}

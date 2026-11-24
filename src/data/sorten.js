@@ -8,6 +8,8 @@
 //            ml = Füllmenge in Millilitern, preis = Bruttopreis in Euro
 // vol:       Alkoholgehalt in % vol. als Zahl, z. B. 42
 // bild:      Datei in public/img/, z. B. 'marille.jpg'
+// freigestellt: true für freigestellte Flaschenfotos auf hellem Grund;
+//            sie werden ganz gezeigt statt angeschnitten
 
 export const SORTEN = [
   {
@@ -15,7 +17,7 @@ export const SORTEN = [
     name: 'Marille',
     art: 'Edelbrand',
     bezeichnung: null,
-    vol: 42,
+    vol: 41,
     groessen: [
       { ml: 200, preis: 17.9 },
       { ml: 350, preis: 27.9 },
@@ -30,7 +32,7 @@ export const SORTEN = [
     name: 'Zwetschke',
     art: 'Edelbrand',
     bezeichnung: null,
-    vol: 42,
+    vol: 41,
     groessen: [
       { ml: 200, preis: 15.9 },
       { ml: 350, preis: 22.9 },
@@ -40,13 +42,13 @@ export const SORTEN = [
     bild: null,
     bildAlt: null,
   },
-  { slug: 'kirsch', name: 'Kirsch', art: 'Edelbrand', bezeichnung: null, vol: null, groessen: [], allergene: null, text: null, bild: null, bildAlt: null },
+  { slug: 'kirsch', name: 'Kirsch', art: 'Edelbrand', bezeichnung: null, vol: 41, groessen: [], allergene: null, text: null, bild: null, bildAlt: null },
   {
     slug: 'birne',
     name: 'Birne',
     art: 'Edelbrand',
     bezeichnung: null,
-    vol: 42,
+    vol: 41,
     groessen: [
       { ml: 200, preis: 15.9 },
       { ml: 350, preis: 22.9 },
@@ -56,43 +58,45 @@ export const SORTEN = [
     bild: null,
     bildAlt: null,
   },
-  { slug: 'aronia', name: 'Aronia', art: 'Edelbrand', bezeichnung: null, vol: null, groessen: [], allergene: null, text: null, bild: null, bildAlt: null },
+  { slug: 'aronia', name: 'Aronia', art: 'Edelbrand', bezeichnung: null, vol: 41, groessen: [], allergene: null, text: null, bild: null, bildAlt: null },
   {
     slug: 'dirndlvodka',
     name: 'Dirndlvodka',
     art: 'Vodka-Likör',
     bezeichnung: null,
-    vol: 30,
+    vol: 31.2,
     groessen: [
       { ml: 350, preis: 29.9 },
       { ml: 500, preis: 38.9 },
     ],
     allergene: null,
     text: 'Der Liebliche. Geküsst von Dirndln aus dem Pielachtal, mit einem süß-säuerlichen Aroma.',
-    bild: null,
-    bildAlt: null,
+    bild: 'dirndlvodka.jpg',
+    freigestellt: true,
+    bildAlt: 'Flasche Dirndlvodka, 500 ml, mit dunkelrotem Inhalt, weißem Etikett und Anhänger mit dem Oberbrand-Wappen',
   },
   {
     slug: 'vodka',
     name: 'Vodka',
     art: 'Vodka',
     bezeichnung: null,
-    vol: 38,
+    vol: 40.5,
     groessen: [
       { ml: 350, preis: 24.9 },
       { ml: 500, preis: 31.9 },
     ],
     allergene: null,
     text: 'Der Klassiker. Hergestellt aus ausgewählten Erdäpfeln aus regionalem Anbau.',
-    bild: null,
-    bildAlt: null,
+    bild: 'vodka.jpg',
+    freigestellt: true,
+    bildAlt: 'Flasche Vodka, 500 ml, klar, mit weißem Etikett und schwarzem Anhänger mit dem Oberbrand-Wappen',
   },
   {
     slug: 'mostlikoer',
     name: 'Mostlikör',
     art: 'Likör',
     bezeichnung: null,
-    vol: 16,
+    vol: 16.5,
     groessen: [
       { ml: 350, preis: 18.9 },
       { ml: 500, preis: 25.9 },
